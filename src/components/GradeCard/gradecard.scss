@@ -1,0 +1,115 @@
+.gradecard {
+    z-index: 2;
+    flex: auto;
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    margin: 16px;
+    border-radius: 25px;
+    background: white;
+    min-width: 200px;
+    max-width: 450px;
+    min-height: 300px;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+    color: black;
+    text-align: center;
+    header {
+        font-size: 32px;
+        padding: 15px;
+        color: black;
+        font-weight: 800;
+    }
+    .sub-row {
+        border-radius: 12px;
+        display: grid;
+        list-style: none;
+        padding: 0 12px;
+        padding-bottom: 8px;
+        margin-bottom: 8px;
+    }
+    .row {
+        border-radius: 12px;
+        display: grid;
+        list-style: none;
+        padding: 0 12px;
+        padding-bottom: 8px;
+        margin-bottom: 8px;
+        &:hover{
+            animation: blink 12s;
+            transform: translateY(-10px);
+        }
+        transition: all .7s;
+    }
+    span {
+        padding: 12px 1px;
+        grid-column-start: 1;
+        grid-row-start: 1;
+        display: inline-block;
+    }
+    .subject {
+        text-align: left;
+        max-width: 70%;
+        font-weight: 600;
+        margin-right: auto;
+    }
+    .marks {
+        margin-left: auto;
+    }
+    .chartdiv {
+        animation: fadein 0.7s ease-in-out;
+        padding-bottom: 20px;
+    }
+    .progress {
+        padding: 4px 1px;
+        div {
+            border-top: thick solid #292929;
+            margin-right: auto;
+            height: 1px;
+            border-radius: 25px;
+            animation: progress 2.5s ease-out;
+        }
+    }
+}
+.updating {
+    padding: 30px;
+    filter: brightness(0%);
+    animation: rotate 500ms linear infinite;
+}
+
+@keyframes rotate {
+    from{
+        transform: rotate(0deg);
+    }
+    to{
+        transform: rotate(-360deg);
+    }
+    
+}
+@keyframes blink {
+    from {
+        background: rgb(0, 255, 191);
+    }
+    to {
+        background: rgb(255, 255, 255);
+    }
+}
+@keyframes progress {
+    from {
+        width: 0;
+    }
+    to {
+        width: 100%;
+    }
+}
+@keyframes fadein {
+    from {
+      opacity: 0;
+      height: 0;
+      transform: translateY(-30px);
+    }
+    to {
+      opacity: 1;
+      height: 100;
+      transform: translateY(0);
+    }
+  } 

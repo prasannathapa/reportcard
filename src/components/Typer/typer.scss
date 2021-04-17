@@ -1,0 +1,14 @@
+#cursor {
+    display: inline-block;
+    height: clamp(16px, 8.6vw, 40px);
+    vertical-align: bottom;
+    position: relative;
+    border-left: 0.05em solid #ffffff;
+    animation: blink 0.7s steps(1) infinite;
+}
+
+@keyframes blink {
+    50% {
+        border-color: transparent;
+    }
+}

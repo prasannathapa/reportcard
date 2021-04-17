@@ -1,0 +1,90 @@
+.drawer {
+  height: 100%;
+  width: 0; /* 0 width - change this with JavaScript */
+  position: fixed; /* Stay in place */
+  z-index: 2; /* Stay on top */
+  top: 0; /* Stay at the top */
+  left: 0;
+  background-color: #111; /* Black*/
+  overflow-x: hidden; /* Disable horizontal scroll */
+  transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+  white-space: nowrap;
+  color: aliceblue;
+  header {
+    width: auto;
+    margin-bottom: 20px;
+    span {
+      font-family: "Open Sans", sans-serif;
+      display: block;
+      width: 300px;
+      font-size: 30px;
+      text-align: center;
+      font-weight: 800;
+      padding-top: 32px;
+    }
+    div {
+      &:hover {
+        background: transparent;
+      }
+      padding: 0;
+    }
+  }
+
+  div {
+    display: flex;
+    padding: 16px;
+    &:hover {
+      background: rgb(10, 10, 10);
+    }
+    p {
+      color: #919191;
+      display: flex;
+      align-items: center;
+      padding-left: 12px;
+      text-decoration: none;
+      font-size: 25px;
+      transition: 0.3s;
+    }
+    img {
+      vertical-align: middle;
+      padding: 0px;
+      width: 36px;
+      height: 36px;
+    }
+  }
+  .selected {
+    background: #000;
+    p {
+      color: #fff;
+    }
+    img {
+      filter: brightness(200%);
+    }
+  }
+}
+.main {
+  background-color: whitesmoke  ;
+  transition: margin-left 0.5s;
+  height: 100%;
+  min-width: 350px;
+  .header {
+    width: 100%;
+    height: 100px;
+    div {
+      z-index: 1;
+      float: left;
+      padding: 0;
+      margin: 0;
+    }
+  }
+  @keyframes fadein {
+    from {
+      opacity: 0;
+      transform: translateY(-30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  } 
+}

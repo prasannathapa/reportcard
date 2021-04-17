@@ -1,0 +1,72 @@
+.toolbox {
+    display: flex;
+    flex-wrap: wrap;
+    margin: auto;
+    width: 80%;
+    min-width: 260px;
+    max-width: 600px;
+    animation: fadein 1s;
+    justify-content: center;
+    padding-bottom: 24px;
+}
+header {
+    padding: 16px;
+    .title {
+        color: rgb(0, 0, 0);
+        font-family: "Open Sans", sans-serif;
+        font-size: 32px;
+    }
+    .sub-title {
+    }
+    span {
+        padding: 0;
+    }
+}
+.resultbox {
+    display: flex;
+    flex-wrap: wrap;
+    margin: auto;
+    width: 100%;
+    min-width: 260px;
+    animation: fadein 1s;
+    justify-content: center;
+    padding-bottom: 24px;
+}
+header {
+    font-size: larger;
+    font-weight: 600;
+}
+.radarbox{
+    margin: auto;
+    width: 100%;
+    min-width: 260px;
+    max-width: 360px;
+    max-height: 350;
+    justify-content: center;
+    padding-bottom: 24px;
+}
+.radarbox-container{
+    display: flex;
+    flex-wrap: wrap;
+    margin: auto;
+    width: 100%;
+    min-width: 260px;
+    animation: fadein 1s;
+    justify-content: center;
+    padding-bottom: 24px;
+}
+.recharts-label{
+    tspan {
+        z-index: 100;
+        font-family: "Open Sans", cursive;
+    }
+}
+.recharts-reference-line {
+    tspan {
+        z-index: 100;
+        font-family: "Zilla Slab Highlight", cursive;
+    }
+}
+.recharts-responsive-container{
+    margin-bottom: 28px;
+}
