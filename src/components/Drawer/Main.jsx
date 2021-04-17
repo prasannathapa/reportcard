@@ -9,7 +9,7 @@ function Main(props) {
     let start = 0, end = 17;
     if (!props.open) { start += 16; end += 15 }
     if (!props.animate) { end = start; }
-    let translate = "translate(" + (-20 + (props.open ? props.width : 0)) + "px,-20px)";
+    let translate = "translate(" + (0 + (props.open ? props.width : 0)) + "px,0px)";
     console.log("Main Rendered, anim drawer icon: " + props.animate);
 
     return (
@@ -34,11 +34,11 @@ function Main(props) {
             </BrowserView>
             <MobileView>
                 <div className="main"  id="main">
-                    <div className="header" >
+                    <div className="header" style={{height:'60px', transform: translate, transition:"0.5s", position:'fixed'}}>
                         <Lottie
                             onClick={props.toggler}
                             animationData={menuAnim}
-                            style={{position:"fixed", width: 100, height: 100, transform: translate, transition:"0.5s"}}
+                            style={{position:"fixed", width: 100, height: 100, transform:'translate(-20px,-20px)'}}
                             speed={0.8}
                             play={props.animate}
                             loop={false}

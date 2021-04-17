@@ -37,7 +37,7 @@ class App extends React.Component {
     let mainComp = <div style={{height:'100%', textAlign:'center'}}><h1>Not implemented yet</h1></div>;
     switch (this.state.itemSelected) {
       case '1':
-        mainComp = <Student />
+        mainComp = <Student text=""/>
         break;
       case '2':
         mainComp = <University />

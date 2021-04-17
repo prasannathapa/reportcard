@@ -20,9 +20,9 @@ function Drawer(props) {
     let mStyle = { width: props.open ? props.width + "px" : "0px" };
     
     if(isMobile){
-        mStyle.backgroundColor= "rgba(17, 17, 17, 0.8)";
-        mStyle.backdropFilter= "blur(15px)";
-    }
+        mStyle.backgroundColor= "rgba(245, 245, 245, 0.808)";
+        mStyle.backdropFilter= "blur(5px)";
+        }
     const drawerItems = props.list.map((item, index) =>
         <div key={index} className={(index === Number(props.activeId)) ? "selected" : ""} onClick={menuItemClick} item-id={index}>
             <img src={item[1]} alt={item[0]} />
@@ -33,7 +33,7 @@ function Drawer(props) {
         <React.Fragment>
             <div className="drawer" style={mStyle}>
                 <header>
-                    <span style={{ width: props.width }}>Grade Card<br></br>Analyzer</span>
+                    <span style={{ width: props.width, color: isMobile?'black':'white' }}>Grade Card<br></br>Analyzer</span>
                     <Lottie
                         animationData={animationData}
                         options={defaultOptions}
