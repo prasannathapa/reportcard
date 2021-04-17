@@ -18,6 +18,7 @@ main {
             font-size: 32px;
         }
         .sub-title {
+
         }
         span {
             padding: 0;
@@ -33,6 +34,20 @@ main {
     animation: fadein 1s;
     justify-content: center;
     padding-bottom: 24px;
+    header {
+        padding: 16px;
+        .title {
+            color: rgb(0, 0, 0);
+            font-family: "Open Sans", sans-serif;
+            font-size: 32px;
+        }
+        .sub-title {
+            
+        }
+        span {
+            padding: 0;
+        }
+    }
 }
 header {
     font-size: larger;

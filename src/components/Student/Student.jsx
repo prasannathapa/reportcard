@@ -238,10 +238,12 @@ class Student extends Component {
                 }
 
                 {this.state.semResult && this.state.semResult.name &&
-                    <header>
-                        <span className="title">{this.state.semResult.name}</span>
-                        <span className="sub-title">{this.state.semResult.registration}</span>
-                    </header>
+                    <div className="resultbox" style={{padding:0}}>
+                        <header>
+                            <span className="title">{this.state.semResult.name}</span>
+                            <span className="sub-title">{this.state.semResult.registration}</span>
+                        </header>
+                    </div>
                 }
                 {this.state.rating !== 0 && this.state.semResult.name && <RatingBar count={this.state.rating + 1} className='resultbox' />}
                 {this.state.semResult && this.state.semResult.name && //false &&
@@ -278,7 +280,7 @@ class Student extends Component {
                                             <PolarAngleAxis dataKey="subCode" />
                                             <PolarRadiusAxis />
                                             <Tooltip dataKey="subName" />
-                                            <Radar name="percentile" dataKey="percentile" stroke="#ffa600" fill="#ffa600" fillOpacity={0.6} />
+                                            <Radar name="percentile" dataKey="percentile" stroke="#FF5733" fill="#FF5733" fillOpacity={0.6} />
                                         </RadarChart>
                                     </ResponsiveContainer>
                                 </div>
@@ -306,7 +308,7 @@ class Student extends Component {
                                                 <ReferenceLine x={this.state.semResult.results[key]} stroke="black" strokeWidth="4px"
                                                     label={<Label position="insideRight" value={this.state.semResult.name} />}
                                                 />
-                                                <Area connectNulls={true} type="monotone" dataKey="students" fill="#ffa600" stroke="#ffa600" />
+                                                <Area connectNulls={true} type="monotone" dataKey="students" fill="#FF5733" stroke="#FF5733" />
                                             </AreaChart >
                                         </ResponsiveContainer>
                                     )

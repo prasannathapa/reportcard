@@ -38,7 +38,8 @@ function Main(props) {
                         <Lottie
                             onClick={props.toggler}
                             animationData={menuAnim}
-                            style={{position:"fixed", width: 100, height: 100, transform:'translate(-20px,-20px)'}}
+                            style={{position:"fixed", width: 100, height: 100, transform:'translate(-20px,-20px)',  
+                                    backgroundColor: "rgba(245, 245, 245, 0.8)",backdropFilter:"blur(3px)", borderRadius:'0 0 50% 0', padding:"0"} }
                             speed={0.8}
                             play={props.animate}
                             loop={false}

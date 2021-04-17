@@ -9,6 +9,7 @@ import iconFaq from './components/Drawer/icons/faq.svg'
 import iconHome from './components/Drawer/icons/home.svg'
 import Student from './components/Student/Student';
 import University from './components/University/University';
+import { isMobile } from 'react-device-detect';
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -25,8 +26,13 @@ class App extends React.Component {
   }
   navItemClickListner(id) {
     console.log("Menu Selected: " + id);
+    let drawerState = this.state.isOpen, animate = false;
+    if(drawerState && isMobile){
+      drawerState = false;
+      animate = true;
+    }
     this.setState(currentState => {
-      return { itemSelected: id, animate: false };
+      return { itemSelected: id, animate: isMobile?animate:false, isOpen:drawerState };
     });
   }
   toggleDrawer(e) {
