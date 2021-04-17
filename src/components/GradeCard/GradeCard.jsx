@@ -130,7 +130,7 @@ class GradeCard extends Component {
                         {this.state.showInfo[key] &&
                             <div className="chartdiv" onClick={this.showModal}>
                                 {this.state.chartData &&
-                                    <ResponsiveContainer minHeight={100} width="100%" height="72%" >
+                                    <ResponsiveContainer minHeight={100} maxHeight={200} width="100%" height="100%" >
                                         {this.state.chartData &&
                                             <BarChart data={this.processAndSort(this.state.chartData[key])}>
                                                 <CartesianGrid strokeDasharray="1 1" />
