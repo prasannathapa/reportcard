@@ -85,7 +85,7 @@ class GradeCard extends Component {
                     if (result['SM0' + this.props.semNo]) {
                         //console.log(this.state.semData, result['SM0' + this.props.semNo]);
                         this.getPercentile(result['SM0' + this.props.semNo], this.state.semData)
-                        if(this._isMounted)
+                        if (this._isMounted)
                             this.setState(() => ({ chartData: result['SM0' + this.props.semNo], chartState: DONE }));
                     }
                     /*if (result.name){
@@ -113,6 +113,7 @@ class GradeCard extends Component {
     render() {
         let items
         let marksTotal = 0, fullMarks = 0;
+        let avg = 0, semcount = 0;
         if (this.props.singleSem) {
             if (this.props.semData.info)
                 return null;
@@ -170,14 +171,17 @@ class GradeCard extends Component {
                     let width, semtotalStudent = 0, semfullMarks = 0;
                     let semObj = this.props.semData[key];
                     if (semObj.info)
-                        semtotalStudent = "N/A";
+                        semtotalStudent = "(Not found) N/A";
                     else {
                         //console.log(semObj);
+                        semcount++;
                         for (let i in semObj) {
                             semtotalStudent += parseFloat(semObj[i].CGPA) * parseFloat(semObj[i].weightage);
                             semfullMarks += parseFloat(semObj[i].weightage);
                         }
                         //console.log(marksTotal, fullMarks);
+                        avg += (semtotalStudent / semfullMarks);
+                        //console.log(avg,semcount);
                         width = (semtotalStudent / semfullMarks) * 10 + "%";
                         semtotalStudent = (semtotalStudent / semfullMarks).toFixed(2) + " CGPA"
                     }
@@ -195,9 +199,9 @@ class GradeCard extends Component {
                             <span className="subject">{sems[key[key.length - 1] - 1]}</span>
                             <span className="marks">{semtotalStudent}</span>
                             <div className="progress">
-                                <div style={{ maxWidth: width }}></div>
+                                <div style={{ maxWidth: width, borderColor:semObj.info?"red":"#000"}}></div>
                             </div>
-                            {this.state.showInfo[key] && <div className="gradecard" style={{ borderRadius: "12px", margin: "0 0" }}>
+                            {this.state.showInfo[key] && !semObj.info && <div className="gradecard height-anim" style={{ borderRadius: "12px", margin: "0 0" }}>
                                 {MiniPreview}
                             </div>}
                         </div >
@@ -210,12 +214,24 @@ class GradeCard extends Component {
         return (
             <div className="gradecard">
                 <header>{this.state.title}</header>
+                {!this.props.singleSem &&
+                    <div className="roll" style={{ fontWeight: "800", paddingBottom: "14px" }}>
+                        {this.props.roll}
+                    </div>
+                }
                 {items}
                 {this.props.singleSem &&
-                    <div className="row" style={{ marginTop: "    auto" }}>
+                    <div className="row" style={{ marginTop: "auto" }}>
                         <span className="subject" style={{ fontSize: "32px" }}>Total</span>
                         <span className="marks" style={{ fontSize: "32px" }}>{(marksTotal / fullMarks).toFixed(2) + " CGPA"}</span>
-                    </div>}
+                    </div>
+                }
+                {!this.props.singleSem &&
+                    <div className="row" style={{ marginTop: "auto" }}>
+                        <span className="subject" style={{ fontSize: "32px" }}>Total</span>
+                        <span className="marks" style={{ fontSize: "32px" }}>{(avg / semcount).toFixed(2) + " CGPA"}</span>
+                    </div>
+                }
             </div>
         )
     }

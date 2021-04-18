@@ -7,7 +7,7 @@
     margin: 16px;
     border-radius: 25px;
     background: white;
-    min-width: 200px;
+    min-width: 340px;
     max-width: 450px;
     min-height: 300px;
     box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
@@ -70,6 +70,11 @@
         }
     }
 }
+.height-anim{
+    min-width: auto;
+    animation: fadein 1s linear;
+    padding: 0;
+}
 .updating {
     padding: 30px;
     filter: brightness(0%);
@@ -95,7 +100,7 @@
 }
 @keyframes progress {
     from {
-        width: 0;
+        width: 0%;
     }
     to {
         width: 100%;
@@ -104,12 +109,12 @@
 @keyframes fadein {
     from {
       opacity: 0;
-      height: 0;
+      height: 0%;
       transform: translateY(-30px);
     }
     to {
       opacity: 1;
-      height: 100;
+      height: 100%;
       transform: translateY(0);
     }
   } 

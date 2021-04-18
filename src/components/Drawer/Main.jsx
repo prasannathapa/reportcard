@@ -21,7 +21,7 @@ function Main(props) {
                         <Lottie
                             onClick={props.toggler}
                             animationData={menuAnim}
-                            style={{ width: 100, height: 100, position:"fixed"}}
+                            style={{ width: 100, height: 100, position: "fixed" }}
                             speed={0.8}
                             play={props.animate}
                             loop={false}
@@ -33,13 +33,15 @@ function Main(props) {
                 </div>
             </BrowserView>
             <MobileView>
-                <div className="main"  id="main">
-                    <div className="header" style={{height:'60px', transform: translate, transition:"0.5s", position:'fixed'}}>
+                <div className="main" id="main">
+                    <div className="header" style={{
+                        height: '60px', transform: translate, transition: "0.5s", position: 'fixed',
+                        backgroundColor: "rgba(245, 245, 245, 0.8)", backdropFilter: "blur(3px)", padding: "0"
+                    }}>
                         <Lottie
                             onClick={props.toggler}
                             animationData={menuAnim}
-                            style={{position:"fixed", width: 100, height: 100, transform:'translate(-20px,-20px)',  
-                                    backgroundColor: "rgba(245, 245, 245, 0.8)",backdropFilter:"blur(3px)", borderRadius:'0 0 50% 0', padding:"0"} }
+                            style={{ position: "fixed", width: 100, height: 100, transform: 'translate(-20px,-20px)' }}
                             speed={0.8}
                             play={props.animate}
                             loop={false}
