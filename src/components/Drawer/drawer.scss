@@ -10,6 +10,9 @@
   transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
   white-space: nowrap;
   color:  #000;
+  &::-webkit-scrollbar {
+    display: none;
+  }
   header {
     width: auto;
     margin-bottom: 20px;
