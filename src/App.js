@@ -7,13 +7,16 @@ import iconCollege from './components/Drawer/icons/college.svg'
 import iconCompare from './components/Drawer/icons/compare.svg'
 import iconFaq from './components/Drawer/icons/faq.svg'
 import iconHome from './components/Drawer/icons/home.svg'
-import Student from './components/Student/Student';
 import University from './components/University/University';
+import Student from './components/Student/Student';
 import { isMobile } from 'react-device-detect';
+import Home from './components/Home/Home';
+import NotImplemented from './components/UnderConstruction';
+
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { isOpen: false, itemSelected: 0, animate: false };
+    this.state = { isOpen: false, itemSelected: '0', animate: false };
     this.toggleDrawer = this.toggleDrawer.bind(this);
 
     this.list = [
@@ -40,8 +43,11 @@ class App extends React.Component {
   }
 
   render() {
-    let mainComp = <div style={{height:'100%', textAlign:'center'}}><h1>Not implemented yet</h1></div>;
+    let mainComp = <NotImplemented/>;
     switch (this.state.itemSelected) {
+      case '0':
+        mainComp = <Home/>
+        break;
       case '1':
         mainComp = <Student text=""/>
         break;

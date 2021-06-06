@@ -49,7 +49,7 @@ class Typer extends Component {
   render() {
     return (
       <div className={this.props.className} style={{color:this.props.color}}>
-        <span style={{letterSpacing:this.props.spacing||0}}>{ this.state.text }</span>
+        <span style={{letterSpacing:this.props.spacing||0, paddingRight:0}}>{ this.state.text }</span>
         <span id="cursor"></span>
       </div>
     );
