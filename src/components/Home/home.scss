@@ -1,0 +1,119 @@
+#home {
+    text-align: center;
+    header {
+        img {
+            display: block;
+            width: 80%;
+            max-width: 500px;
+            padding: 6px;
+            height: auto;
+            margin: auto 0;
+            border: 0 solid #000;
+            border-radius: 16px;
+            box-shadow: rgba(0, 0, 0, 0.45) 0px 5px 15px 0px;
+            &:hover {
+                transform: scale(1.03);
+                transition: 0.4s all;
+            }
+        }
+        .title {
+            font-family: "Open Sans", sans-serif;
+            color: black;
+            font-size: clamp(16px, 8.6vw, 68px);
+            display: block;
+            width: auto;
+        }
+        span {
+            font-family: "Open Sans", sans-serif;
+            color: black;
+            font-size: 28px;
+            margin: auto 0;
+            display: inline;
+            width: auto;
+        }
+        p {
+            padding: 16px;
+            width: 80%;
+            margin-bottom: 40px;
+            text-align: justify;
+        }
+    }
+
+    b {
+        color: red;
+    }
+
+    .flex {
+        padding: 16px;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    text {
+        place-self: center;
+        text-align: justify;
+        max-width: 600px;
+        padding: 0 32px;
+    }
+
+    .typer {
+        padding: 16px;
+        span {
+            font-family: "New Tegomin", serif;
+            font-size: 24px;
+        }
+    }
+
+    #cursor {
+        display: inline-block;
+        height: clamp(16px, 4.6vw, 40px);
+        vertical-align: bottom;
+        position: relative;
+        border-left: 0.05em solid #000;
+        animation: blinkblack 0.7s steps(1) infinite;
+    }
+    @keyframes blinkblack {
+        50% {
+            border-color: transparent;
+        }
+    }
+
+    footer {
+        margin-top: 64px;
+        display: flex;
+        text-align: center;
+        width: 100%;
+        background: #000;
+        a{
+            border-radius: 12px;
+            cursor: pointer;
+            padding-left: 10px;
+            padding-right: 10px;
+            color: white;
+            text-decoration: none;
+            font-family: "Open Sans", sans-serif;
+            &:hover{
+                background: #000;
+            }
+        }
+        span {
+            font-family: "Open Sans", sans-serif;
+            color: white;
+            font-size: 28px;
+            margin: auto;
+            display: inline-block;
+            width: auto;
+            img {
+                width: 50px;
+                height: auto;
+                margin: 16px;
+                display: inline;
+                vertical-align: middle;
+            }
+            .rotate{
+                animation: spin 10s linear infinite;
+            }
+            @keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
+        }
+    }
+}
