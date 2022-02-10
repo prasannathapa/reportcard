@@ -51,7 +51,7 @@ img.search-logo {
         outline: none;
         border: 0;
         border-radius: 0;
-        &::-webkit-inner-spin-button{
+        &::-webkit-inner-spin-button {
             appearance: none;
         }
     }
@@ -75,4 +75,16 @@ img.search-logo {
     min-width: 260px;
     height: auto;
     text-align: center;
+}
+@media only screen and (max-width: 600px) {
+    .search-text {
+        input {
+            letter-spacing: 3px;
+        }
+        .hint {
+            span {
+                letter-spacing: 3px;
+            }
+        }
+    }
 }

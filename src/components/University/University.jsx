@@ -6,6 +6,7 @@ import updateIcon from "../ToggleButton/sync.svg";
 import tickIcon from "../ToggleButton/done.svg";
 import GradeCard from "../GradeCard/GradeCard";
 import "./university.scss";
+import { API_HOST } from "../../Database/db";
 const IDLE = 0;
 const DONE = 10;
 const FETCHING = 1;
@@ -23,6 +24,7 @@ class University extends Component {
         this.searchState = this.searchState.bind(this);
         this.sortFilter = this.sortFilter.bind(this);
         this.sortProp = this.sortProp.bind(this);
+        this.textFilter = this.textFilter.bind(this);
         let savedState = JSON.parse(localStorage.getItem('MultiStudentState')) ||
             { input: false, text1: "", text2: "", sems: {}, fetchState: IDLE, semResult: {}, sortBy: 0, sort: 1 };
         this.state = savedState;
@@ -42,7 +44,7 @@ class University extends Component {
         }
     }
     sortedObj(jsonObj, sort) {
-        const sortedResult = Object.keys(jsonObj).sort((a, b) => {
+        return Object.keys(jsonObj).sort((a, b) => {
             a = parseInt(a)
             b = parseInt(b)
             if (sort == 1)
@@ -52,24 +54,23 @@ class University extends Component {
             obj[key] = jsonObj[key];
             return obj;
         }, {});
-        return sortedResult;
     }
     sortSems(semResult, sortBy, sort) {
         let obj = [];
         console.log(sortBy, sort);
         for (let i in semResult)
             obj.push(semResult[i]);
-        if (sortBy != -1) {
+        if (sortBy >= 0) {
             obj.sort((a, b) => {
                 let prop = ["SM01", "SM02", "SM03", "SM04", "SM05", "SM06", "SM07", "SM08"]
                 let ar = a.results || {};
                 let br = b.results || {};
                 let x = ar[prop[sortBy]]
                 let y = br[prop[sortBy]]
-                if (!x) x = 999*sort;
-                if (!y) y = 999*sort;
+                if (!x) x = 999 * sort;
+                if (!y) y = 999 * sort;
                 if (x > y) {
-                    return sort == 1? 1 : -1;
+                    return sort == 1 ? 1 : -1;
                 }
                 else if (x < y)
                     return sort == 1 ? -1 : 1;
@@ -78,12 +79,49 @@ class University extends Component {
             });
             console.log(obj)
             let sR = {};
-            for (let i = 0; i < obj.length; i++)
-                sR[obj[i].roll] = obj[i];
+            for (let data of obj)
+                sR[data.roll] = data;
             semResult = sR;
         }
-        else {
+        else if (sortBy == -1) {
             semResult = this.sortedObj(semResult, sort);
+        }
+        else if (sortBy == -2) {
+            obj.sort((a, b) => {
+
+                let sems_cgpa = Object.values(a.results || {});
+                let x = sems_cgpa.reduce((acc, v, i, xa) => (acc + v / xa.length), 0);
+                sems_cgpa = Object.values(b.results || {});
+                let y = sems_cgpa.reduce((acc, v, i, xa) => (acc + v / xa.length), 0);
+                if (!x) x = 999 * sort;
+                if (!y) y = 999 * sort;
+                if (x > y) {
+                    return sort == 1 ? 1 : -1;
+                }
+                else if (x < y)
+                    return sort == 1 ? -1 : 1;
+                else
+                    return 0;
+            });
+            let sR = {};
+            for (let data of obj)
+                sR[data.roll] = data;
+            semResult = sR;
+        }
+        else if (sortBy == -3) {
+            obj.sort((a, b) => {
+                if (a.name > b.name) {
+                    return sort == 1 ? 1 : -1;
+                }
+                else if (a.name < b.name)
+                    return sort == 1 ? -1 : 1;
+                else
+                    return 0;
+            });
+            let sR = {};
+            for (let data of obj)
+                sR[data.roll] = data;
+            semResult = sR;
         }
         this.setState(() => ({ semResult: semResult, fetchState: DONE, sort: sort, sortBy: sortBy }));
     }
@@ -97,7 +135,7 @@ class University extends Component {
             for (const i in this.state.sems)
                 if (this.state.sems[i] === true)
                     semList += (1 + parseInt(i)).toString();
-            fetch("https://makaut-api.herokuapp.com/" + this.state.text1 + "/" + this.state.text2 + "/" + semList)
+            fetch(API_HOST + "/" + this.state.text1 + "/" + this.state.text2 + "/" + semList)
                 .then(res => res.json())
                 .then(
                     (result) => {
@@ -151,14 +189,30 @@ class University extends Component {
         this.setState(() => ({ text2: text }));
     }
     sortFilter(e) {
-        //console.log(parseInt(e.target.value));
         this.sortSems(this.state.semResult, this.state.sortBy, e.target.value)
     }
     sortProp(e) {
-        //console.log(parseInt(e.target.value));
         this.sortSems(this.state.semResult, e.target.value, this.state.sort)
     }
-
+    textFilter(e) {
+        this.setState(() => ({ textFilter: e.target.value }));
+    }
+    checkTextFilter(grade) {
+        let containText = true;
+        if (this.state.textFilter && this.state.textFilter.length > 0) {
+            let filterArray = this.state.textFilter.split(" ");
+            for (let filter of filterArray) {
+                if (filter.length > 0) {
+                    if (JSON.stringify(grade).toLocaleLowerCase().search(filter.toLocaleLowerCase()) == -1) {
+                        containText = false;
+                        break;
+                    }
+                }
+            }
+        }
+        return grade.name && containText;
+    }
+    boderStyle = { borderRadius: "12px", padding: "16px" };
     render() {
         const semsBtn = sems.map((item, index) =>
             <button key={index} className={(this.state.sems[index]) ? "toggle on" : "toggle off"} onClick={this.semsQueryHandler} item-id={index}>
@@ -215,26 +269,33 @@ class University extends Component {
                 {this.state.fetchState !== FETCHING && Object.keys(this.state.semResult).length > 0 &&
                     <div className="toolbox">
                         <span style={{ display: "inline", margin: "auto 0", fontFamily: "'Open Sans', cursive" }}>Sort by</span>
-                        <select value={this.state.sortBy} onChange={this.sortProp}>
+                        <select style={this.boderStyle} value={this.state.sortBy} onChange={this.sortProp}>
                             <option value={-1}>Roll number</option>
+                            <option value={-3}>Name</option>
+                            <option value={-2}>Average CGPA</option>
                             {Object.keys(this.state.sems).map(i => {
-                                if (this.state.sems[i] == true)
+                                if (this.state.sems[i] === true)
                                     return (<option key={i} value={i}>{sems[i]}</option>)
                                 return null;
                             }
                             )}
                         </select>
-                        <select value={this.state.sort} onChange={this.sortFilter}>
+                        <select style={this.boderStyle} value={this.state.sort} onChange={this.sortFilter}>
                             <option value={1} >Ascending</option>
                             <option value={-1} >Descending</option>
                         </select>
                     </div>
-
+                }
+                {this.state.fetchState !== FETCHING && Object.keys(this.state.semResult).length > 0 &&
+                    <div className="toolbox">
+                        <span style={{ display: "inline", margin: "auto 40px auto 0", fontFamily: "'Open Sans', cursive" }}>Filter by</span>
+                        <input onChange={this.textFilter} style={{ border: "none", minWidth: "50%", borderRadius: "12px", padding: "16px" }}></input>
+                    </div>
                 }
                 {this.state.semResult &&
                     <div className="resultbox">
                         {Object.keys(this.state.semResult).map(roll => {
-                            if (this.state.semResult[roll].name)
+                            if (this.checkTextFilter(this.state.semResult[roll]))
                                 return <GradeCard key={roll}
                                     title={this.state.semResult[roll].name}
                                     semData={this.state.semResult[roll]}

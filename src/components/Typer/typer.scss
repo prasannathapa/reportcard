@@ -3,10 +3,10 @@
     vertical-align: bottom;
     position: relative;
     border-left: 0.05em solid #ffffff;
-    animation: blink 0.7s steps(1) infinite;
+    animation: blinkwhite 0.7s steps(1) infinite;
 }
 
-@keyframes blink {
+@keyframes blinkwhite {
     50% {
         border-color: transparent;
     }

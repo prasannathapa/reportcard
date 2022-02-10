@@ -4,6 +4,7 @@ import Drawer from './components/Drawer/drawer';
 import Main from './components/Drawer/Main';
 import iconCard from './components/Drawer/icons/reportcard.svg'
 import iconCollege from './components/Drawer/icons/college.svg'
+import iconAI from './components/Drawer/icons/ai.svg'
 import iconCompare from './components/Drawer/icons/compare.svg'
 import iconFaq from './components/Drawer/icons/faq.svg'
 import iconHome from './components/Drawer/icons/home.svg'
@@ -23,7 +24,8 @@ class App extends React.Component {
       ["Home", iconHome],
       ["Student Report", iconCard],
       ["Multi Report", iconCompare],
-      ["Predict", iconCollege],
+      ["College Report", iconCollege],
+      ["Predict", iconAI],
       ["Faq", iconFaq]]
     this.navItemClickListner = this.navItemClickListner.bind(this);
   }

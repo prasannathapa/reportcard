@@ -11,7 +11,7 @@ import {
     ResponsiveContainer,
     Cell
 } from "recharts";
-
+import { API_HOST } from "../../Database/db";
 const sems = ["1st sem", "2nd sem", "3rd sem", "4th sem", "5th sem", "6th sem", "7th sem", "8th sem"]
 const NOTSTARTED = 0;
 const FETCHING = 1;
@@ -77,8 +77,8 @@ class GradeCard extends Component {
         //console.log("componentDidUpdate");
         if (this.props.singleSem && this.state.chartState === NOTSTARTED) {
             this.setState(() => ({ chartState: FETCHING }));
-            //console.log("https://makaut-api.herokuapp.com/analytics/subjects/" + this.props.roll + "/" + this.props.semNo);
-            fetch("https://makaut-api.herokuapp.com/analytics/subjects/" + this.props.roll + "/" + this.props.semNo)
+            //console.log(API_HOST + "/analytics/subjects/" + this.props.roll + "/" + this.props.semNo);
+            fetch(API_HOST+"/analytics/subjects/" + this.props.roll + "/" + this.props.semNo)
                 .then(res => res.json())
                 .then((result) => {
                     //console.log(result);

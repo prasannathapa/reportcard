@@ -10,6 +10,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import GradeCard from "../GradeCard/GradeCard";
 import RatingBar from "../Ratings/Ratings";
 import { Area, AreaChart, CartesianGrid, Label, PolarAngleAxis, PolarGrid, PolarRadiusAxis, Radar, RadarChart, ReferenceLine, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+import { API_HOST } from "../../Database/db";
 
 const sems = ["1st sem", "2nd sem", "3rd sem", "4th sem", "5th sem", "6th sem", "7th sem", "8th sem"]
 const IDLE = 0;
@@ -79,7 +80,7 @@ class Student extends Component {
             for (const i in this.state.sems)
                 if (this.state.sems[i] === true)
                     semList += (1 + parseInt(i)).toString();
-            fetch("https://makaut-api.herokuapp.com/" + this.state.text + "/" + semList)
+            fetch(API_HOST + "/" + this.state.text + "/" + semList)
                 .then(res => res.json())
                 .then(
                     (result) => {
@@ -106,7 +107,7 @@ class Student extends Component {
                         console.log(error);
                     }
                 )
-            fetch("https://makaut-api.herokuapp.com/analytics/cgpa/" + this.state.text + "/" + semList)
+            fetch(API_HOST + "/analytics/cgpa/" + this.state.text + "/" + semList)
                 .then(res => res.json())
                 .then(
                     (result) => {

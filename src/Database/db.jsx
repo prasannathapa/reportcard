@@ -195,3 +195,7 @@ const colleges = {
     376: "BENGAL COLLEGE OF PHARMACEUTICAL TECHNOLOGY",
 }
 export default colleges;
+
+const HTTP_METHOD = "http://";
+const HOST_URL = "localhost:8080";
+export const API_HOST = HTTP_METHOD + HOST_URL;
