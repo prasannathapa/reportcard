@@ -196,6 +196,6 @@ const colleges = {
 }
 export default colleges;
 
-const HTTP_METHOD = "http://";
-const HOST_URL = "localhost:8080";
+const HTTP_METHOD = "https://";
+const HOST_URL = "makaut-student.web.app";
 export const API_HOST = HTTP_METHOD + HOST_URL;
