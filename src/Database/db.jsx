@@ -196,6 +196,44 @@ const colleges = {
 }
 export default colleges;
 
+const cources = {
+    "052": "B.Tech Apparel & Production Management",
+    "053": "B.Tech Applied Electronics & Instrumentation Engineering   ",
+    "055": "B.Tech Applied Electronics & Instrumentation Engineering   ",
+    "023": "Bachelor Architecture",
+    "032": "B.Tech Automobile Engineering",
+    "031": "B.Tech Biomedical Engineering",
+    "004": "B.Tech Biotechnology",
+    "006": "B.Tech Chemical Engineering",
+    "054": "B.Tech Civil & Environmental Engineering",
+    "013": "B.Tech Civil Engineering",
+    "001": "B.Tech Computer Sc. & Engineering",
+    "028": "B.Tech Electrical & Electronics Engineering",
+    "016": "B.Tech Electrical Engineering",
+    "003": "B.Tech Electronics & Communications Engg",
+    "034": "B.Tech Food Technology",
+    "022": "Bachelor Hotel Management & Catering Technology",
+    "002": "B.Tech Information Technology",
+    "040": "B.Tech Instrumentation & Control Engineering",
+    "018": "B.Tech Leather Technology",
+    "007": "B.Tech Mechanical Engineering",
+    "019": "Bachelor of Pharmacy",
+    "014": "B.Tech Textile Technology",
+    "320": "B.Tech Robotics",
+    "304": "B.Tech Data Science",
+    "305": "B.Tech Computer Science and Engineering (Data Science)",
+    "306": "B.Tech Artificial Intelligence and Machine Learning",
+    "308": "B.Tech Computer Science And Engineering (AI & ML) ",
+    "309": "B.Tech Computer Science And Engineering (IoT & Cyber Security including Block Chain Technology)",
+    "310": "B.Tech Artificial Intelligence And Data Science",
+    "311": "B.Tech Computer Science and Business System",
+    "536": "Bachelor of Hospitality And Tourism Administration ",
+    "315": "B.Tech Computer Science & Design (CSD)",
+}
+export const course_code = cources;
+
 const HTTP_METHOD = "https://";
 const HOST_URL = "makaut-api.herokuapp.com";
+//const HTTP_METHOD = "http://";
+//const HOST_URL = "localhost:8080";
 export const API_HOST = HTTP_METHOD + HOST_URL;

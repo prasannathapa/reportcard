@@ -8,11 +8,12 @@ import iconAI from './components/Drawer/icons/ai.svg'
 import iconCompare from './components/Drawer/icons/compare.svg'
 import iconFaq from './components/Drawer/icons/faq.svg'
 import iconHome from './components/Drawer/icons/home.svg'
-import University from './components/University/University';
+import MultiReport from './components/MultiReport/MultiReport'
 import Student from './components/Student/Student';
 import { isMobile } from 'react-device-detect';
 import Home from './components/Home/Home';
 import NotImplemented from './components/UnderConstruction';
+import CollegeReport from './components/CollegeReport/CollegeReport';
 
 class App extends React.Component {
   constructor(props) {
@@ -54,7 +55,10 @@ class App extends React.Component {
         mainComp = <Student text=""/>
         break;
       case '2':
-        mainComp = <University />
+        mainComp = <MultiReport />
+        break;
+      case '3':
+        mainComp = <CollegeReport />
         break;
       default:
         console.log(this.state.itemSelected, "was selected");

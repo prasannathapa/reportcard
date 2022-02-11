@@ -309,7 +309,7 @@ class Student extends Component {
                                                 <ReferenceLine x={this.state.semResult.results[key]} stroke="black" strokeWidth="4px"
                                                     label={<Label position="insideRight" value={this.state.semResult.name} />}
                                                 />
-                                                <Area connectNulls={true} type="monotone" dataKey="students" fill="#FF5733" stroke="#FF5733" />
+                                                <Area connectNulls={true} type="basis" dataKey="students" fill="#FF5733" stroke="#FF5733" />
                                             </AreaChart >
                                         </ResponsiveContainer>
                                     )

@@ -34,11 +34,11 @@
         padding: 0 12px;
         padding-bottom: 8px;
         margin-bottom: 8px;
-        &:hover{
+        &:hover {
             animation: blink 12s;
             transform: translateY(-10px);
         }
-        transition: all .7s;
+        transition: all 0.7s;
     }
     span {
         padding: 12px 1px;
@@ -70,7 +70,7 @@
         }
     }
 }
-.height-anim{
+.height-anim {
     min-width: auto;
     animation: fadein 1s linear;
     padding: 0;
@@ -82,13 +82,12 @@
 }
 
 @keyframes rotate {
-    from{
+    from {
         transform: rotate(0deg);
     }
-    to{
+    to {
         transform: rotate(-360deg);
     }
-    
 }
 @keyframes blink {
     from {
@@ -108,13 +107,13 @@
 }
 @keyframes fadein {
     from {
-      opacity: 0;
-      height: 0%;
-      transform: translateY(-30px);
+        opacity: 0;
+        height: 0%;
+        transform: translateY(-30px);
     }
     to {
-      opacity: 1;
-      height: 100%;
-      transform: translateY(0);
+        opacity: 1;
+        height: 100%;
+        transform: translateY(0);
     }
-  } 
+}
