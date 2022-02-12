@@ -23,7 +23,7 @@ class SearchBox extends Component {
     render() {
         return (
             <div className="search">
-                {this.props.title && <span>{this.props.title}</span>}
+                {this.props.title && <h3>{this.props.title}</h3>}
                 <div className="search-box">
                     <img className="search-logo" alt="search icon" src={searchIcon} />
                     <div className="search-text">
