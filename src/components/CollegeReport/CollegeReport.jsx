@@ -39,11 +39,11 @@ class CollegeReport extends Component {
         const insuff_data_thres = 7;
         for (const batch in data.data) {
             for (const Subject in data.data[batch]) {
-                let lowDeviationHighMarks = "";
-                let lowDeviationLowMarks = "";
-                let highDeviation = "";
-                let lessdata = "";
                 for (const sem in data.data[batch][Subject]) {
+                    let lowDeviationHighMarks = "";
+                    let lowDeviationLowMarks = "";
+                    let highDeviationData = "";
+                    let lessdata = "";
                     for (const subjectData of data.data[batch][Subject][sem]) {
                         if (subjectData.pass + subjectData.fail < insuff_data_thres) {
                             lessdata += (data.subjectMap[subjectData.code] || subjectData.code) + ", ";
@@ -52,17 +52,17 @@ class CollegeReport extends Component {
                             if (subjectData.averageCGPA >= cgpa_high_thres) {
                                 lowDeviationHighMarks += (data.subjectMap[subjectData.code] || subjectData.code) + ", ";
                             } else if (subjectData.averageCGPA <= cgpa_low_thres) {
-                                lowDeviationLowMarks += (data.subjectMap[subjectData.code] || subjectData.code) + ", ";
+                                lowDeviationLowMarks = lowDeviationLowMarks + (data.subjectMap[subjectData.code] || subjectData.code) + ", ";
                             }
                         }
                         else if (subjectData.standardDeviation > sd_high_thres) {
-                            highDeviation += (data.subjectMap[subjectData.code] || subjectData.code) + ", ";
+                            highDeviationData = highDeviationData + (data.subjectMap[subjectData.code] || subjectData.code) + ", ";
                         }
                     }
 
+                    highDeviationData = highDeviationData.slice(0, -2).trim();
                     lowDeviationHighMarks = lowDeviationHighMarks.slice(0, -2).trim();
                     lowDeviationLowMarks = lowDeviationLowMarks.slice(0, -2).trim();
-                    highDeviation = highDeviation.slice(0, -2).trim();
                     lessdata = lessdata.slice(0, -2).trim();
                     let a, b, c, d;
                     if (lowDeviationHighMarks.length > 1) {
@@ -77,9 +77,9 @@ class CollegeReport extends Component {
                             as it has very low standard deviation (less than {sd_low_thres} ) with low class average (less than {cgpa_low_thres} ). The reason can be uncovered syllabus by the organisation, question paper with out of syllabus questions or an excessively lengthy question paper.<br></br>
                         </Fragment>
                     }
-                    if (highDeviation.length > 1) {
+                    if (highDeviationData.length > 1) {
                         c = <Fragment>
-                            Students having <bold>{highDeviation}</bold>
+                            Students having <bold>{highDeviationData}</bold>
                             has a very much dispersed performance than normal (these subjects had a standard deviation of more than  {sd_high_thres} ) wich might be caused by lack of communication of students with teaching faculty or most students is being mostly not present in the lectures.<br></br>
                         </Fragment>
 
@@ -89,7 +89,8 @@ class CollegeReport extends Component {
                             Note: conclusions on <bold>{lessdata}</bold> have been ignored due to less data available
                         </Fragment>
                     }
-                    data.studentCount[batch][Subject][sem].report = <p>{a}{b}{c}{d}</p>;
+                    if (a || b || c || d)
+                        data.studentCount[batch][Subject][sem].report = <p>{a}{b}{c}{d}</p>;
                 }
             }
         }
@@ -305,9 +306,11 @@ class CollegeReport extends Component {
                                                 </ResponsiveContainer>
                                             </div>
                                         </header>
-                                        <div className="badge mxw90p">
-                                            {this.state.data1.studentCount[this.state.selectedYear][this.state.selectedCourse][key].report}
-                                        </div>
+                                        {this.state.data1.studentCount[this.state.selectedYear][this.state.selectedCourse][key].report != undefined &&
+                                            <div className="badge mxw90p">
+                                                {this.state.data1.studentCount[this.state.selectedYear][this.state.selectedCourse][key].report}
+                                            </div>
+                                        }
                                     </div>
                                 )
                             }
