@@ -79,8 +79,8 @@ class CollegeReport extends Component {
                     }
                     if (highDeviation.length > 1) {
                         c = <Fragment>
-                            Students having <bold>{highDeviation}</bold> 
-                             has a very much dispersed performance than normal (these subjects had a standard deviation of more than  {sd_high_thres} ) wich might be caused by lack of communication of students with teaching faculty or most students is being mostly not present in the lectures.<br></br>
+                            Students having <bold>{highDeviation}</bold>
+                            has a very much dispersed performance than normal (these subjects had a standard deviation of more than  {sd_high_thres} ) wich might be caused by lack of communication of students with teaching faculty or most students is being mostly not present in the lectures.<br></br>
                         </Fragment>
 
                     }
@@ -238,10 +238,6 @@ class CollegeReport extends Component {
                                 return (
                                     <div className="resultbox">
                                         <h3>Semester {key[3]} data</h3>
-                                        <div className="badge mxw90p">
-                                            <img src={infoIcon}></img>
-                                            {this.state.data1.studentCount[this.state.selectedYear][this.state.selectedCourse][key].report}
-                                        </div>
                                         <header>
                                             <div style={{ display: "block", Height: "400px", minWidth: "60vw" }}>
                                                 <div className="resultbox" style={{ flex: "1", minWidth: "360px", display: "block" }}>
@@ -309,6 +305,9 @@ class CollegeReport extends Component {
                                                 </ResponsiveContainer>
                                             </div>
                                         </header>
+                                        <div className="badge mxw90p">
+                                            {this.state.data1.studentCount[this.state.selectedYear][this.state.selectedCourse][key].report}
+                                        </div>
                                     </div>
                                 )
                             }
