@@ -127,10 +127,11 @@ class CollegeReport extends Component {
         return (this.state.collegeCode1 != -1 && this.state.collegeCode2 != -1);
     }
     getCollegeResult() {
-        this.setState({ fetchState: FETCHING })
+        
         let cc1 = this.state.collegeCode1;
         let cc2 = this.state.collegeCode2;
         if (cc2 == -1 && cc1 != -1) {
+            this.setState({ fetchState: FETCHING });
             fetch(API_HOST + "/analytics/college/" + cc1)
                 .then(res => res.json())
                 .then((result) => {
@@ -142,6 +143,9 @@ class CollegeReport extends Component {
                         selectedCourse: Object.keys(result.data[selectedYear])[0]
                     });
                 });
+        }
+        else if(cc1 != -1 && cc2 != -2){
+            toast("Functionality not implemented yet", { type: toast.TYPE.INFO })
         }
     }
     selectYear(e) {

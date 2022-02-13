@@ -16,9 +16,10 @@ main {
             color: rgb(0, 0, 0);
             font-family: "Open Sans", sans-serif;
             font-size: 32px;
+            display: block;
         }
         .sub-title {
-
+            display: block;
         }
         span {
             padding: 0;
@@ -40,9 +41,12 @@ main {
             color: rgb(0, 0, 0);
             font-family: "Open Sans", sans-serif;
             font-size: 32px;
+            display: block;
+            margin-bottom: 12px;
         }
         .sub-title {
-            
+            display: block;
+            margin-bottom: 12px;
         }
         span {
             padding: 0;
@@ -54,11 +58,11 @@ header {
     font-weight: 600;
 }
 .radarbox {
-    margin: auto;
+    margin: 32px auto auto auto;
     width: 100%;
     min-width: 260px;
     max-width: 360px;
-    max-height: 350;
+    max-height: 350px;
     justify-content: center;
     padding-bottom: 24px;
 }
