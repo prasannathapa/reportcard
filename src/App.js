@@ -8,6 +8,8 @@ import iconAI from './components/Drawer/icons/ai.svg'
 import iconCompare from './components/Drawer/icons/compare.svg'
 import iconFaq from './components/Drawer/icons/faq.svg'
 import iconHome from './components/Drawer/icons/home.svg'
+import iconBook from './components/Drawer/icons/book.svg'
+import iconSearch from './components/Drawer/icons/search.svg'
 import MultiReport from './components/MultiReport/MultiReport'
 import Student from './components/Student/Student';
 import { isMobile } from 'react-device-detect';
@@ -23,9 +25,11 @@ class App extends React.Component {
 
     this.list = [
       ["Home", iconHome],
-      ["Student Report", iconCard],
-      ["Multi Report", iconCompare],
+      ["Student Report", iconSearch],
+      ["Multi Report", iconCard],
       ["College Report", iconCollege],
+      ["Subject Report", iconBook],
+      ["Compare Student", iconCompare],
       ["Predict", iconAI],
       ["Faq", iconFaq]]
     this.navItemClickListner = this.navItemClickListner.bind(this);

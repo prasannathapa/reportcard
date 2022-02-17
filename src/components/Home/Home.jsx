@@ -6,9 +6,56 @@ import resultPreviewImg from './result-prev.png'
 import subPreviewImg from './sub-res.png'
 import distImg from './distribution.png'
 import multiRepImg from './multi-prev.png'
+import { Area, AreaChart, Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 function Home(props) {
+    const data = [
+        {
+            name: 'Page A',
+            uv: 4000,
+            pv: 2400,
+            amt: 2400,
+        },
+        {
+            name: 'Page B',
+            uv: 3000,
+            pv: 1398,
+            amt: 2210,
+        },
+        {
+            name: 'Page C',
+            uv: 2000,
+            pv: 9800,
+            amt: 2290,
+        },
+        {
+            name: 'Page D',
+            uv: 2780,
+            pv: 3908,
+            amt: 2000,
+        },
+        {
+            name: 'Page E',
+            uv: 1890,
+            pv: 4800,
+            amt: 2181,
+        },
+        {
+            name: 'Page F',
+            uv: 2390,
+            pv: 3800,
+            amt: 2500,
+        },
+        {
+            name: 'Page G',
+            uv: 3490,
+            pv: 4300,
+            amt: 2100,
+        },
+    ];
+
     return (
         <div id="home">
+
             <header >
                 <span className="title">Grade Card Analyzer!</span>
                 <text>works with</text>
@@ -19,9 +66,9 @@ function Home(props) {
                     <div style={{ display: 'inline-grid', margin: '32px 24px' }}>
                         <span>MAKAUT STUDENT REPORT</span>
                         <text>This is an analytics tool for your semester results as well as a rating card for your profile.
-                        It works for most of the MAKAUT colleges and shows your results and various analytics data like
-                        with Bar Chart per subjects showing your CGPA amongst everyone's performance, individual
-                         subject reports and overall semester percentile from <a>MAKAUT API</a></text>
+                            It works for most of the MAKAUT colleges and shows your results and various analytics data like
+                            with Bar Chart per subjects showing your CGPA amongst everyone's performance, individual
+                            subject reports and overall semester percentile from <a>MAKAUT API</a></text>
                     </div>
                 </div>
                 <hr style={{ width: '10%', margin: '24px auto' }} />
@@ -29,13 +76,13 @@ function Home(props) {
                     <span># The Rating System</span>
                     <RatingBar count={Math.floor(Math.random() * 3) + 3} />
                     <p>The better the <b>PERCENTILE</b> the better the <b>RATING</b>. The CGPA of each selected semester is evaluated amongst all the
-                     students of the same course and the average percentile is calculated, 5 🌟 the student is academically better then 80% of the crowd,
-                      4 🌟 is better then 60% and so on...</p>
+                        students of the same course and the average percentile is calculated, 5 🌟 the student is academically better then 80% of the crowd,
+                        4 🌟 is better then 60% and so on...</p>
                     <div style={{ display: 'inline-grid', margin: '32px 24px' }}>
                         <span>The Subject Radar</span>
                         <text>One may get 10 CGPA easily in one subject and stuggle for 7 CGPA on other. But with The recruiter can under-estimate your hard work
-                        as you dont have a perfect 10 on your card. This is where percentile based marks can be helpful to show the percentage of people you are
-                        better then.The Subject Radar shows you your percentile based score to help you get more meaningfull results
+                            as you dont have a perfect 10 on your card. This is where percentile based marks can be helpful to show the percentage of people you are
+                            better then.The Subject Radar shows you your percentile based score to help you get more meaningfull results
                         </text>
                     </div>
 
@@ -47,24 +94,24 @@ function Home(props) {
                     <div style={{ display: 'inline-grid', margin: '32px 24px' }}>
                         <span>Semester Analytics</span>
                         <text>This is an analytics tool for your semester results! It works for most of the MAKAUT colleges and shows your results
-                        with Bar Chart per subjects showing your CGPA amongst everyone's performance from <a>MAKAUT API</a></text>
+                            with Bar Chart per subjects showing your CGPA amongst everyone's performance from <a>MAKAUT API</a></text>
                     </div>
                     <div style={{ height: '64px', width: '100%' }}></div>
                 </div>
-                <hr style={{width:'10%', margin:'24px auto'}}/>
+                <hr style={{ width: '10%', margin: '24px auto' }} />
                 <span className="title">Multi Report</span>
                 <div className="flex">
                     <img src={multiRepImg}></img>
                     <div style={{ display: 'inline-grid', margin: '32px 24px' }}>
                         <span>Get the whole class results!</span>
                         <text>Just put the begining and ending roll number of any batch and the results are at
-                             you finger tips! Sort the results by various paramaters and find the Topper or the bottom ranker see your place amongst all</text>
+                            you finger tips! Sort the results by various paramaters and find the Topper or the bottom ranker see your place amongst all</text>
                     </div>
                 </div>
             </header>
             <footer>
                 <span className="title">A project on <img className="rotate" src="/logo192.png"></img>
-                 and <img src="/nodejs.png"></img> by <a href="https://prasanna-thapa.herokuapp.com/" target="_blank">Prasanna Thapa</a></span>
+                    and <img src="/nodejs.png"></img> by <a href="https://prasanna-thapa.herokuapp.com/" target="_blank">Prasanna Thapa</a></span>
             </footer>
         </div>
     )

@@ -9,7 +9,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import GradeCard from "../GradeCard/GradeCard";
 import RatingBar from "../Ratings/Ratings";
-import { Area, AreaChart, CartesianGrid, Label, PolarAngleAxis, PolarGrid, PolarRadiusAxis, Radar, RadarChart, ReferenceLine, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+import { Area, AreaChart, Bar, BarChart, CartesianGrid, Label, Legend, Line, LineChart, PolarAngleAxis, PolarGrid, PolarRadiusAxis, Radar, RadarChart, ReferenceLine, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { API_HOST } from "../../Database/db";
 
 const sems = ["1st sem", "2nd sem", "3rd sem", "4th sem", "5th sem", "6th sem", "7th sem", "8th sem"]
@@ -32,11 +32,12 @@ class Student extends Component {
         let text = this.props.text || "";
         let semsState = this.props.sems || {};
         let semResult = this.props.semResult || {};
+        let progressChartData = this.props.progressChartData || [];
         if (text !== "")
-            this.state = { input: false, text: "", sems: semsState, semResult: semResult, fetchState: IDLE, rating: 0, topSubjects: {}, radarGraph: null };
+            this.state = { input: false, text: "", sems: semsState, semResult: semResult, progressChartData: progressChartData, fetchState: IDLE, rating: 0, topSubjects: {}, radarGraph: null };
         else {
             let savedState = JSON.parse(localStorage.getItem('studentState')) ||
-                { input: false, text: "", sems: semsState, semResult: {}, fetchState: IDLE, rating: 0, topSubjects: {}, radarGraph: null };
+                { input: false, text: "", sems: semsState, semResult: {}, progressChartData: [], fetchState: IDLE, rating: 0, topSubjects: {}, radarGraph: null };
             this.state = savedState;
         }
     }
@@ -49,7 +50,9 @@ class Student extends Component {
     componentDidUpdate(prevProps, prevState) {
         //console.log(this.state.fetchState);
         if (this.state.fetchState === DONE_ALL && this.state.semResult.name) {
-            let rating = 0, semCount = 0;
+
+            let rating = 0, semCount = 0, progressArray = [];
+            console.log(this.state.analyticsResult);
             for (let key in this.state.analyticsResult) {
                 let analyticsResult = this.state.analyticsResult;
                 let semResult = this.state.semResult;
@@ -57,13 +60,18 @@ class Student extends Component {
                     let myCGPA = parseFloat(semResult.results[key]);
                     let studentBelowMe = 0, totalStudent = 0;
                     semCount++;
-                    for (let i = 0; i < analyticsResult[key].length; i++) {
-                        let itr = analyticsResult[key][i];
+                    for (let itr of analyticsResult[key]) {
                         if (myCGPA > parseFloat(itr.CGPA))
                             studentBelowMe += itr.count;
                         totalStudent += itr.count;
                     }
-                    rating += studentBelowMe / totalStudent;
+                    let prcntile = studentBelowMe / totalStudent;
+                    progressArray.push({
+                        "percentile": parseFloat((prcntile * 10 + 5).toFixed(2)),
+                        "CGPA": myCGPA,
+                        "semester": key
+                    })
+                    rating += prcntile;
                 }
             }
             rating = (rating / semCount) * 5;
@@ -71,9 +79,11 @@ class Student extends Component {
             let myState = this.state;
             myState.rating = rating;
             myState.fetchState = SHOWING_DATA;
+            myState.progressChartData = progressArray;
+            console.log(progressArray);
             localStorage.setItem('studentState', JSON.stringify(myState));
             toast(this.state.semResult.name + " is in top " + (100 - rating * 20).toFixed(2) + "%", { type: toast.TYPE.INFO });
-            this.setState(() => ({ rating: rating, fetchState: SHOWING_DATA }))
+            this.setState(() => ({ rating: rating, progressChartData: progressArray, fetchState: SHOWING_DATA }))
         }
         else if (this.state.fetchState === FETCHING && prevState.fetchState !== FETCHING) {
             let semList = "";
@@ -96,7 +106,7 @@ class Student extends Component {
                             toast("Records not Found!", { type: toast.TYPE.ERROR });
                         const STATE = this.state.fetchState === DONE_ANALYTICS ? DONE_ALL : DONE_SCORE;
                         this.setState(() => ({ semResult: result, fetchState: STATE }));
-                        //console.log(result);
+                        console.log(result);
                     },
                     // Note: it's important to handle errors here
                     // instead of a catch() block so that we don't swallow
@@ -153,7 +163,7 @@ class Student extends Component {
         if (!radar)
             radar = {}
         radar = Object.assign(radar, obj);
-        console.log(radar);
+        //console.log(radar);
         if (this._isMounted)
             this.setState(() => ({ radarGraph: radar }));
     }
@@ -239,7 +249,7 @@ class Student extends Component {
                 }
 
                 {this.state.semResult && this.state.semResult.name &&
-                    <div className="resultbox" style={{padding:0}}>
+                    <div className="resultbox" style={{ padding: 0 }}>
                         <header>
                             <span className="title">{this.state.semResult.name}</span>
                             <span className="sub-title">{this.state.semResult.registration}</span>
@@ -247,6 +257,7 @@ class Student extends Component {
                     </div>
                 }
                 {this.state.rating !== 0 && this.state.semResult.name && <RatingBar count={this.state.rating + 1} className='resultbox' />}
+
                 {this.state.semResult && this.state.semResult.name && //false &&
                     <div className="resultbox">
                         {Object.keys(this.state.semResult).map(item => {
@@ -280,13 +291,34 @@ class Student extends Component {
                                             <PolarGrid />
                                             <PolarAngleAxis dataKey="subCode" />
                                             <PolarRadiusAxis />
-                                            <Tooltip dataKey="subName" />
+                                            <Tooltip dataKey="subName" formatter={(v, k, i) => [i.payload.percentile + '%', i.payload.subName]} />
                                             <Radar name="percentile" dataKey="percentile" stroke="#FF5733" fill="#FF5733" fillOpacity={0.6} />
                                         </RadarChart>
                                     </ResponsiveContainer>
                                 </div>
                             ))}
                         </div>
+                    </div>
+                }
+                {this.state.fetchState === SHOWING_DATA && this.state.progressChartData.length > 0 &&
+                    <div className="resultbox">
+                        <header>
+                            <span className="title">Improvement analysis</span>
+                            <span className="sub-title">Corelate of performance per semester</span>
+                        </header>
+                        <ResponsiveContainer width="90%" height={300}>
+                            <LineChart
+                                width={500}
+                                height={300}
+                                data={this.state.progressChartData}
+                            >
+                                <XAxis dataKey="semester"/>
+                                <Tooltip formatter={(v, k, i) => [(k === 'percentile') ? ((v - 5) * 10).toFixed(2) + "%" : v, k]} />
+                                <Legend />
+                                <Line type="monotone" dataKey="CGPA" stroke="#8884d8" activeDot={{ r: 8 }} />
+                                <Line type="linear" dataKey="percentile" dataText="percentile" stroke="#82ca9d" />
+                            </LineChart>
+                        </ResponsiveContainer>
                     </div>
                 }
                 {this.state.fetchState === SHOWING_DATA && !this.state.analyticsResult.info &&
@@ -309,7 +341,7 @@ class Student extends Component {
                                                 <ReferenceLine x={this.state.semResult.results[key]} stroke="black" strokeWidth="4px"
                                                     label={<Label position="insideRight" value={this.state.semResult.name} />}
                                                 />
-                                                <Area connectNulls={true} type="basis" dataKey="students" fill="#FF5733" stroke="#FF5733" />
+                                                <Area connectNulls={true} type="step" dataKey="students" fill="#FF5733" stroke="#FF5733" />
                                             </AreaChart >
                                         </ResponsiveContainer>
                                     )
@@ -318,16 +350,16 @@ class Student extends Component {
                                     return null;
                             })
                         }
-                        {//<GradeCard title={this.state.semResult.name} semData={this.state.semResult} singleSem={false} />
-                        }
                     </div>
                 }
+
                 {this.state.semResult && this.state.semResult.name &&
                     <footer>
                         <span>{this.state.semResult.collegeName}</span>
                     </footer>
                 }
             </div>
+
         );
     }
     checkAnySemList() {
