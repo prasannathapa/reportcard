@@ -224,7 +224,7 @@ class StudentCompare extends Component {
                     ]}
                     active={this.state.input}
                 />
-                {(this.state.input || this.state.text || this.state.studentList.length > 0) && (this.state.fetchState !== DONE_ALL || this.state.fetchState !== DONE_SCORE) &&
+                {(this.state.input || this.state.text || this.state.studentList.length > 0) && (this.state.fetchState !== DONE_ALL || this.state.fetchState !== DONE_SCORE) && this.state.fetchState !== SHOWING_DATA &&
                     <div className="toolbox">
                         {semsBtn}
                     </div>
@@ -257,6 +257,8 @@ class StudentCompare extends Component {
                         </button>
                     </div>
                 }
+                <div className="resultbox"></div>
+                <div className="resultbox"></div>
                 {this.state.fetchState === SHOWING_DATA &&
                     <div className="resultbox">
                         <ResponsiveContainer width="90%" height={400}>
@@ -266,7 +268,6 @@ class StudentCompare extends Component {
                                 data={this.state.SemesterPAA}
                             >
                                 <XAxis dataKey="name" />
-                                <YAxis />
                                 <Tooltip formatter={(v, k, i) => [(k.endsWith('CGPA')) ? (v / 10).toFixed(2) : v + "%", k]} />
                                 <Legend />
                                 {
@@ -291,7 +292,7 @@ class StudentCompare extends Component {
                     <div className="resultbox">
                         {(this.chunkArray(this.state.SubjectPAA, 4)).map((subArr, key) => {
                             return (
-                                <header>
+                                <div>
                                     <div style={{ display: "block", Height: "400px" }}>
                                         <ResponsiveContainer width={360} height={300}>
                                             <BarChart
@@ -299,7 +300,6 @@ class StudentCompare extends Component {
                                                 data={subArr}
                                             >
                                                 <XAxis dataKey="name" />
-                                                <YAxis />
                                                 <Tooltip formatter={(v, k, i) => [(k.endsWith('CGPA')) ? (v / 10).toFixed(2) : v + "%", k]} />
                                                 {key == (this.state.SubjectPAA.length/4) -1 && <Legend />}
                                                 {
@@ -319,7 +319,7 @@ class StudentCompare extends Component {
                                             </BarChart>
                                         </ResponsiveContainer>
                                     </div>
-                                </header>
+                                </div>
                             )
                         })}
 
