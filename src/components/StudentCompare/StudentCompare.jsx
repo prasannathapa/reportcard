@@ -305,14 +305,14 @@ class StudentCompare extends Component {
                                                 {
                                                     this.state.savedStudentList.map((v, k) => {
                                                         return (
-                                                            <Bar stackId={v} name={this.state.nameMap[v] + "'s CGPA"} key={k + "bar"} type="linear" dataKey={v + "'s CGPA"} fill={colors[(k + offset) % colors.length] + 'AA'} />
+                                                            <Bar stackId={v} name={this.state.nameMap[v].split(' ')[0] + "'s CGPA"} key={k + "bar"} type="linear" dataKey={v + "'s CGPA"} fill={colors[(k + offset) % colors.length] + 'AA'} />
                                                         )
                                                     })
                                                 }
                                                 {
                                                     this.state.savedStudentList.map((v, k) => {
                                                         return (
-                                                            <Bar stackId={v} name={this.state.nameMap[v] + "'s Percentile"} key={k + 'line'} type="linear" strokeWidth={3} dataKey={v + "'s PCTL"} fill={colors[(k + offset )% colors.length]} />
+                                                            <Bar stackId={v} name={this.state.nameMap[v].split(' ')[0] + "'s Percentile"} key={k + 'line'} type="linear" strokeWidth={3} dataKey={v + "'s PCTL"} fill={colors[(k + offset )% colors.length]} />
                                                         )
                                                     })
                                                 }
