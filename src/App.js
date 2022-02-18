@@ -16,6 +16,7 @@ import { isMobile } from 'react-device-detect';
 import Home from './components/Home/Home';
 import NotImplemented from './components/UnderConstruction';
 import CollegeReport from './components/CollegeReport/CollegeReport';
+import StudentCompare from './components/StudentCompare/StudentCompare';
 
 class App extends React.Component {
   constructor(props) {
@@ -63,6 +64,9 @@ class App extends React.Component {
         break;
       case '3':
         mainComp = <CollegeReport />
+        break;
+      case '5':
+        mainComp = <StudentCompare />
         break;
       default:
         console.log(this.state.itemSelected, "was selected");

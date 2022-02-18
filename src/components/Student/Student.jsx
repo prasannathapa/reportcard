@@ -9,7 +9,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import GradeCard from "../GradeCard/GradeCard";
 import RatingBar from "../Ratings/Ratings";
-import { Area, AreaChart, Bar, BarChart, CartesianGrid, Label, Legend, Line, LineChart, PolarAngleAxis, PolarGrid, PolarRadiusAxis, Radar, RadarChart, ReferenceLine, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+import { Area, AreaChart, Bar, BarChart, Brush, CartesianGrid, ComposedChart, Label, Legend, Line, LineChart, PolarAngleAxis, PolarGrid, PolarRadiusAxis, Radar, RadarChart, ReferenceLine, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { API_HOST } from "../../Database/db";
 
 const sems = ["1st sem", "2nd sem", "3rd sem", "4th sem", "5th sem", "6th sem", "7th sem", "8th sem"]
@@ -308,10 +308,11 @@ class Student extends Component {
                         </header>
                         <ResponsiveContainer width="90%" height={300}>
                             <LineChart
-                                width={500}
+                                width={400}
                                 height={300}
                                 data={this.state.progressChartData}
                             >
+                                <YAxis tick={false}/>
                                 <XAxis dataKey="semester"/>
                                 <Tooltip formatter={(v, k, i) => [(k === 'percentile') ? ((v - 5) * 10).toFixed(2) + "%" : v, k]} />
                                 <Legend />
@@ -332,17 +333,19 @@ class Student extends Component {
                                 if (['SM01', 'SM02', 'SM03', 'SM04', 'SM05', 'SM06', 'SM07', 'SM08'].includes(key)) {
                                     return (
                                         <ResponsiveContainer key={key} minHeight={380} width="90%" height="100%">
-                                            <AreaChart zoomAndPan="true"
+                                            <ComposedChart zoomAndPan="true"
                                                 data={this.sortCGPAAnalytics(this.state.analyticsResult[key])}>
                                                 <CartesianGrid strokeDasharray="3 3" />
-                                                <XAxis height={40} dataKey="CGPA" label={{ value: "Semester " + key[key.length - 1] + " CGPA", position: "outsideTopMiddle", dx: 0, dy: 13 }} />
+                                                <XAxis height={60} dataKey="CGPA" label={{ value: "Semester " + key[key.length - 1] + " CGPA", position: "outsideTopMiddle", dx: 0, dy: 13 }} />
                                                 <YAxis label={{ value: "Students Count", position: "outsideMiddle", angle: -90, dx: -20 }} />
                                                 <Tooltip />
                                                 <ReferenceLine x={this.state.semResult.results[key]} stroke="black" strokeWidth="4px"
                                                     label={<Label position="insideRight" value={this.state.semResult.name} />}
                                                 />
-                                                <Area connectNulls={true} type="step" dataKey="students" fill="#FF5733" stroke="#FF5733" />
-                                            </AreaChart >
+                                                <Bar dataKey="students" fill="#FF5733" stroke="#FF5733" />
+                                                <Area connectNulls={true} type="basis" dataKey="students" fill="#FF573380" stroke="#FF5733" />
+                                                <Brush dataKey="name" height={30} stroke="#FF5733" />
+                                            </ComposedChart >
                                         </ResponsiveContainer>
                                     )
                                 }

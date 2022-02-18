@@ -9,7 +9,7 @@ import '../Student/student.scss';
 import updateIcon from "../ToggleButton/sync.svg";
 import tickIcon from "../ToggleButton/done.svg";
 import infoIcon from "./icons/info.svg";
-import { Area, AreaChart, Bar, BarChart, CartesianGrid, Cell, Label, Legend, Pie, PieChart, PolarAngleAxis, PolarGrid, PolarRadiusAxis, Radar, RadarChart, ReferenceLine, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+import { Area, AreaChart, Bar, BarChart, Brush, CartesianGrid, Cell, Label, Legend, Pie, PieChart, PolarAngleAxis, PolarGrid, PolarRadiusAxis, Radar, RadarChart, ReferenceLine, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 const IDLE = 0;
 const DONE = 10;
 const FETCHING = 1;
@@ -241,7 +241,7 @@ class CollegeReport extends Component {
                         {Object.keys(this.state.data1.data[this.state.selectedYear][this.state.selectedCourse]).map(key => {
                             if (['SM01', 'SM02', 'SM03', 'SM04', 'SM05', 'SM06', 'SM07', 'SM08'].includes(key)) {
                                 return (
-                                    <div className="resultbox">
+                                    <div key={key} className="resultbox">
                                         <h3>Semester {key[3]} data</h3>
                                         <header>
                                             <div style={{ display: "block", Height: "400px", minWidth: "60vw" }}>
@@ -255,6 +255,7 @@ class CollegeReport extends Component {
                                                             <Legend />
                                                             <Bar dataKey="pass" fill="#82ca9d" />
                                                             <Bar dataKey="fail" fill="#ff1d1d" />
+                                                            <Brush dataKey="name" height={30} stroke="#8884d8" />
                                                         </BarChart>
                                                     </ResponsiveContainer>
                                                     <ResponsiveContainer key={key + "graph2"} minHeight={380} width="90%" height={400}>
@@ -267,6 +268,7 @@ class CollegeReport extends Component {
                                                             <Bar dataKey="lowestCGPA" fill="#ff1d1d" />
                                                             <Bar dataKey="averageCGPA" fill="#8884d8" />
                                                             <Bar dataKey="highestCGPA" fill="#82ca9d" />
+                                                            <Brush dataKey="name" height={30} stroke="#8884d8" />
                                                         </BarChart>
                                                     </ResponsiveContainer>
                                                 </div>

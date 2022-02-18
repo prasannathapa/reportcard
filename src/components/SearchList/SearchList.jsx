@@ -44,7 +44,7 @@ class SearchList extends Component {
                             return (
                                 <div key={k} className="item-container" onClick={e => this.listItemClicked(e, k)}>
                                     <div>{v}</div>
-                                    {this.state.selectedList[k] &&
+                                    {(this.state.selectedList[k] ||  this.props.allAlwaysSelected) &&
                                         <img className="search-logo" alt="search icon" src={deleteIcon} />
                                     }
                                 </div>
