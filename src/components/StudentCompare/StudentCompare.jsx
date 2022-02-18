@@ -272,14 +272,14 @@ class StudentCompare extends Component {
                                 {
                                     this.state.savedStudentList.map((v, k) => {
                                         return (
-                                            <Bar name={this.state.nameMap[v] + "'s CGPA"} key={k + "bar"} type="linear" dataKey={v + "'s CGPA"} fill={colors[k % colors.length] + 'AA'} />
+                                            <Bar name={this.state.nameMap[v] + "'s CGPA"} key={k + "bar"} type="linear" dataKey={v + "'s CGPA"} fill={colors[(k+ offset) % colors.length] + 'AA'} />
                                         )
                                     })
                                 }
                                 {
                                     this.state.savedStudentList.map((v, k) => {
                                         return (
-                                            <Line name={this.state.nameMap[v] + "'s Percentile"} key={k + 'line'} type="linear" strokeWidth={3} dataKey={v + "'s PCTL"} stroke={colors[k % colors.length]} />
+                                            <Line name={this.state.nameMap[v] + "'s Percentile"} key={k + 'line'} type="linear" strokeWidth={3} dataKey={v + "'s PCTL"} stroke={colors[(k + offset) % colors.length]} />
                                         )
                                     })
                                 }
@@ -293,7 +293,7 @@ class StudentCompare extends Component {
                             return (
                                 <header>
                                     <div style={{ display: "block", Height: "400px" }}>
-                                        <ResponsiveContainer width={500} height={500}>
+                                        <ResponsiveContainer width={500} height={300}>
                                             <BarChart
                                                 width={500}
                                                 data={subArr}
@@ -301,18 +301,18 @@ class StudentCompare extends Component {
                                                 <XAxis dataKey="name" />
                                                 <YAxis />
                                                 <Tooltip formatter={(v, k, i) => [(k.endsWith('CGPA')) ? (v / 10).toFixed(2) : v + "%", k]} />
-                                                <Legend />
+                                                {key == (this.state.SubjectPAA.length/4) -1 && <Legend />}
                                                 {
                                                     this.state.savedStudentList.map((v, k) => {
                                                         return (
-                                                            <Bar stackId={v} name={this.state.nameMap[v] + "'s CGPA"} key={k + "bar"} type="linear" dataKey={v + "'s CGPA"} fill={colors[k + offset % colors.length] + 'AA'} />
+                                                            <Bar stackId={v} name={this.state.nameMap[v] + "'s CGPA"} key={k + "bar"} type="linear" dataKey={v + "'s CGPA"} fill={colors[(k + offset) % colors.length] + 'AA'} />
                                                         )
                                                     })
                                                 }
                                                 {
                                                     this.state.savedStudentList.map((v, k) => {
                                                         return (
-                                                            <Bar stackId={v} name={this.state.nameMap[v] + "'s Percentile"} key={k + 'line'} type="linear" strokeWidth={3} dataKey={v + "'s PCTL"} fill={colors[k + offset % colors.length]} />
+                                                            <Bar stackId={v} name={this.state.nameMap[v] + "'s Percentile"} key={k + 'line'} type="linear" strokeWidth={3} dataKey={v + "'s PCTL"} fill={colors[(k + offset )% colors.length]} />
                                                         )
                                                     })
                                                 }
