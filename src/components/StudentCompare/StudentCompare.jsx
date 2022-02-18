@@ -261,7 +261,7 @@ class StudentCompare extends Component {
                     <div className="resultbox">
                         <ResponsiveContainer width="90%" height={400}>
                             <ComposedChart
-                                width={1000}
+                                width={360}
                                 height={300}
                                 data={this.state.SemesterPAA}
                             >
@@ -293,7 +293,7 @@ class StudentCompare extends Component {
                             return (
                                 <header>
                                     <div style={{ display: "block", Height: "400px" }}>
-                                        <ResponsiveContainer width={500} height={300}>
+                                        <ResponsiveContainer width={360} height={300}>
                                             <BarChart
                                                 width={500}
                                                 data={subArr}
