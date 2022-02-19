@@ -9,15 +9,12 @@ import '../Student/student.scss';
 import updateIcon from "../ToggleButton/sync.svg";
 import tickIcon from "../ToggleButton/done.svg";
 import infoIcon from "./icons/info.svg";
-import { Area, AreaChart, Bar, BarChart, Brush, CartesianGrid, Cell, Label, Legend, Pie, PieChart, PolarAngleAxis, PolarGrid, PolarRadiusAxis, Radar, RadarChart, ReferenceLine, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+import { Bar, BarChart, Brush, CartesianGrid, Cell, Legend, Pie, PieChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 const IDLE = 0;
 const DONE = 10;
 const FETCHING = 1;
-const ERROR = -1;
 const DONE_SCORE = 2;
-const DONE_ANALYTICS = 3;
 const DONE_ALL = 4;
-const SHOWING_DATA = 10;
 class CollegeReport extends Component {
     constructor(props) {
         super(props);
@@ -31,7 +28,6 @@ class CollegeReport extends Component {
         this.state = savedState;
     }
     generateStandardDeviationReport(data) {
-        let sd_report = {};
         const sd_low_thres = 0.7;
         const sd_high_thres = 1.8;
         const cgpa_low_thres = 5.8;

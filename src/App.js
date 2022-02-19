@@ -17,6 +17,7 @@ import Home from './components/Home/Home';
 import NotImplemented from './components/UnderConstruction';
 import CollegeReport from './components/CollegeReport/CollegeReport';
 import StudentCompare from './components/StudentCompare/StudentCompare';
+import SubjectReport from './components/SubjectReport/SubjectReport';
 
 class App extends React.Component {
   constructor(props) {
@@ -64,6 +65,9 @@ class App extends React.Component {
         break;
       case '3':
         mainComp = <CollegeReport />
+        break;
+      case '4':
+        mainComp = <SubjectReport />
         break;
       case '5':
         mainComp = <StudentCompare />

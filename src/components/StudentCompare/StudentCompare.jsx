@@ -6,7 +6,7 @@ import updateIcon from "../ToggleButton/sync.svg";
 import tickIcon from "../ToggleButton/done.svg";
 import SearchList from "../SearchList/SearchList";
 import { API_HOST, colors } from "../../Database/db";
-import { Bar, BarChart, ComposedChart, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+import { Bar, BarChart, ComposedChart, Legend, Line, ResponsiveContainer, Tooltip, XAxis } from "recharts";
 
 const sems = ["1st sem", "2nd sem", "3rd sem", "4th sem", "5th sem", "6th sem", "7th sem", "8th sem"]
 const IDLE = 0;
@@ -75,7 +75,7 @@ class StudentCompare extends Component {
         }));
     }
     getPercentile(data, cgpa) {
-        console.log(data, cgpa);
+        //console.log(data, cgpa);
         cgpa = parseFloat(cgpa) / 10;
         let studentBelowMe = 0, total = 0;
         for (let item of data) {
@@ -245,8 +245,7 @@ class StudentCompare extends Component {
                         list={this.state.studentList}
                         allAlwaysSelected={true}
                         ItemClickUpdate={this.ItemClickUpdate}
-                        hideGradient={this.state.fetchState === DONE_ALL}
-                        maxLimitReachMsg={"You can only select 2 colleges at maximun to compare"} />
+                        hideGradient={this.state.fetchState === DONE_ALL} />
                 }
                 {this.state.studentList.length > 0 && this.checkAnySemList() && this.state.fetchState !== SHOWING_DATA &&
                     <div className="toolbox">
@@ -292,7 +291,7 @@ class StudentCompare extends Component {
                     <div className="resultbox">
                         {(this.chunkArray(this.state.SubjectPAA, 4)).map((subArr, key) => {
                             return (
-                                <div>
+                                <div >
                                     <div style={{ display: "block", Height: "400px" }}>
                                         <ResponsiveContainer width={360} height={300}>
                                             <BarChart
