@@ -22,7 +22,7 @@ import SubjectReport from './components/SubjectReport/SubjectReport';
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { isOpen: false, itemSelected: '0', animate: false };
+    this.state = { isOpen: !isMobile, itemSelected: '0', animate: false };
     this.toggleDrawer = this.toggleDrawer.bind(this);
 
     this.list = [
@@ -35,16 +35,19 @@ class App extends React.Component {
       ["Predict", iconAI],
       ["Faq", iconFaq]]
     this.navItemClickListner = this.navItemClickListner.bind(this);
+    if (localStorage.getItem("ver") !== "1.15")
+      localStorage.clear();
+    localStorage.setItem("ver", "1.15")
   }
   navItemClickListner(id) {
     console.log("Menu Selected: " + id);
     let drawerState = this.state.isOpen, animate = false;
-    if(drawerState && isMobile){
+    if (drawerState && isMobile) {
       drawerState = false;
       animate = true;
     }
     this.setState(currentState => {
-      return { itemSelected: id, animate: isMobile?animate:false, isOpen:drawerState };
+      return { itemSelected: id, animate: isMobile ? animate : false, isOpen: drawerState };
     });
   }
   toggleDrawer(e) {
@@ -52,13 +55,13 @@ class App extends React.Component {
   }
 
   render() {
-    let mainComp = <NotImplemented/>;
+    let mainComp = <NotImplemented />;
     switch (this.state.itemSelected) {
       case '0':
-        mainComp = <Home/>
+        mainComp = <Home />
         break;
       case '1':
-        mainComp = <Student text=""/>
+        mainComp = <Student text="" />
         break;
       case '2':
         mainComp = <MultiReport />

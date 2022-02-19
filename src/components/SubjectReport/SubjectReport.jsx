@@ -9,6 +9,7 @@ import tickIcon from "../ToggleButton/done.svg";
 import infoIcon from "../CollegeReport/icons/info.svg";
 
 import { Bar, BarChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+import { Fragment } from "react/cjs/react.production.min";
 
 const IDLE = 0;
 const DONE = 10;
@@ -23,11 +24,12 @@ class SubjectReport extends Component {
         this.searchTextUpdate = this.searchTextUpdate.bind(this);
         this.getData = this.getData.bind(this);
         this.selectSem = this.selectSem.bind(this);
+        this.textFilter = this.textFilter.bind(this);
         let savedState = JSON.parse(localStorage.getItem("subjectData") || "{}");
         if (JSON.stringify(savedState) !== "{}")
             this.state = savedState;
         else
-            this.state = { text: "", input: false, semList: [] }
+            this.state = { text: "", input: false, semList: [], textFilter: "" }
     }
     ItemClickUpdate(selectedSubject, isSelected) {
         selectedSubject = Object.keys(subCodes)[selectedSubject]
@@ -35,7 +37,7 @@ class SubjectReport extends Component {
         if (isSelected)
             this.setState(() => ({ text: "", selectedSubject: selectedSubject, semList: subCodes[selectedSubject], selectedSem: subCodes[selectedSubject][0] }));
         else
-            this.setState(() => ({ text: "", selectedSubject: null, semList: [] }));
+            this.setState(() => ({ text: "", selectedSubject: null, semList: [], fetchState: IDLE }));
     }
     selectSem(e) {
         this.setState({ selectedSem: e.target.value });
@@ -54,9 +56,12 @@ class SubjectReport extends Component {
             },
             body: urlencoded
         }).then(res => res.json()).then(data => {
-            this.setState({ fetchState: DONE_ALL, data: data, text:subCode});
+            this.setState({ fetchState: DONE_ALL, data: data, text: subCode });
             localStorage.setItem("subjectData", JSON.stringify(this.state));
         });
+    }
+    textFilter(e) {
+        this.setState({ textFilter: e.target.value });
     }
     searchState(isActive) {
         let apiState = this.state.fetchState;
@@ -65,8 +70,24 @@ class SubjectReport extends Component {
         this.setState(() => ({ input: isActive, fetchState: apiState }));
     }
     searchTextUpdate(text) {
-        this.setState(() => ({ text: text }));
+        this.setState(() => ({ text: text, fetchState: IDLE }));
     }
+    checkTextFilter(text) {
+        let containText = true;
+        if (this.state.textFilter && this.state.textFilter.length > 0) {
+            let filterArray = this.state.textFilter.split(" ");
+            for (let filter of filterArray) {
+                if (filter.length > 0) {
+                    if (text.toLocaleLowerCase().search(filter.replace(/[#-.]|[[-^]|[?|{}]/g, '\\$&').toLocaleLowerCase()) == -1) {
+                        containText = false;
+                        break;
+                    }
+                }
+            }
+        }
+        return containText;
+    }
+    boderStyle = { borderRadius: "12px", padding: "16px" };
     render() {
         let resultState;
         switch (this.state.fetchState) {
@@ -99,16 +120,22 @@ class SubjectReport extends Component {
                     list={Object.keys(subCodes)}
                     ItemClickUpdate={this.ItemClickUpdate}
                     maxSelection={1}
-                    allAlwaysSelected={true}
                     hideGradient={this.state.fetchState == DONE} />
                 {this.state.semList.length > 0 &&
                     <div className="toolbox">
                         <span style={{ display: "inline", margin: "auto 0", fontFamily: "'Open Sans', cursive" }}>Semester</span>
-                        <select onChange={this.selectSem} style={this.boderStyle} value={this.state.selectedSem} disabled={this.state.semList.length == 1}>
+                        <select style={this.boderStyle} onChange={this.selectSem} style={this.boderStyle} value={this.state.selectedSem} disabled={this.state.semList.length == 1}>
                             {this.state.semList.map(sem => {
-                                return <option key={sem} value={sem}>{sem}</option>
+                                return <option key={sem} value={sem}>{"sem "+sem[3]}</option>
                             })}
                         </select>
+                        {this.state.data &&
+                            <Fragment>
+                                <span>  </span>
+                                <span style={{ display: "inline", margin: "auto 40px auto 0", fontFamily: "'Open Sans', cursive" }}>Filter by</span>
+                                <input onChange={this.textFilter} style={{ border: "none", minWidth: "50%", borderRadius: "12px", padding: "8px" }}></input>
+                            </Fragment>
+                        }
                     </div>
                 }
                 {this.state.selectedSubject &&
@@ -120,36 +147,37 @@ class SubjectReport extends Component {
                         </button>
                     </div>
                 }
+
                 {this.state.data &&
                     <div className="resultbox">
                         {Object.keys(this.state.data).map(college => {
                             return (
-                                <div key={college} className="gradecard" style={{ width: "auto" }}>
-                                    <h3>{colleges[college]}</h3>
-                                    {Object.keys(this.state.data[college]).map(batch => {
-                                        return (
-                                            <div key={batch+college} style={{ display: "block", Height: "400px" }}>
-                                                <span>{"20" + batch}</span>
-                                                <ResponsiveContainer width={360} height={300}>
-                                                    <BarChart
-                                                        width={500}
-                                                        data={this.state.data[college][batch].CGPA_DATA}>
-                                                        <XAxis height={60} label={{ value: "CGPA", position: "outsideTopMiddle", dx: 0, dy: 13 }} />
-                                                        <YAxis dataKey="" />
-                                                        <Bar name="Students" dataKey="count" />
-                                                        <Tooltip />
-                                                    </BarChart>
-                                                </ResponsiveContainer>
-                                                <div className="badge mxw300">
-                                                    <img src={infoIcon}></img>
-                                                    <p>Average: <bold>{this.state.data[college][batch].AVERAGE_CGPA}</bold><br></br> standard deviation <bold>{this.state.data[college][batch].STANDARD_DEVIATION}</bold> </p>
+                                this.checkTextFilter(colleges[college]) ?
+                                    <div key={college} className="gradecard" style={{ width: "auto" }}>
+                                        <h3>{colleges[college]}</h3>
+                                        {Object.keys(this.state.data[college]).map(batch => {
+                                            return (
+                                                <div key={batch + college} style={{ display: "block", Height: "400px" }}>
+                                                    <span>{"20" + batch}</span>
+                                                    <ResponsiveContainer width={360} height={300}>
+                                                        <BarChart
+                                                            width={500}
+                                                            data={this.state.data[college][batch].CGPA_DATA}>
+                                                            <XAxis height={60} label={{ value: "CGPA", position: "outsideTopMiddle", dx: 0, dy: 13 }} />
+                                                            <YAxis dataKey="" />
+                                                            <Bar name="Students" dataKey="count" />
+                                                            <Tooltip />
+                                                        </BarChart>
+                                                    </ResponsiveContainer>
+                                                    <div className="badge mxw300">
+                                                        <img src={infoIcon}></img>
+                                                        <p>Average: <bold>{this.state.data[college][batch].AVERAGE_CGPA}</bold><br></br> standard deviation <bold>{this.state.data[college][batch].STANDARD_DEVIATION}</bold> </p>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        )
-                                    })
-                                    }
-                                </div>
-
+                                            )
+                                        })
+                                        }
+                                    </div> : null
                             )
                         })
                         }
