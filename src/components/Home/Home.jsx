@@ -137,8 +137,8 @@ function Home(props) {
                 </div>
             </header>
             <footer>
-                <span className="title">A project on <img className="rotate" src="/logo192.png"></img>
-                    and <img src="/nodejs.png"></img> by <a href="https://prasanna-thapa.herokuapp.com/" target="_blank">Prasanna Thapa</a></span>
+                <span className="title">A project on <img className="rotate" src="https://github.com/prasannathapa/reportcard/raw/master/public/logo192.png"></img>
+                    and <img src="https://github.com/prasannathapa/reportcard/raw/master/public/nodejs.png"></img> by <a href="https://prasanna-thapa.herokuapp.com/" target="_blank">Prasanna Thapa</a></span>
             </footer>
         </div>
     )

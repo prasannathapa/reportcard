@@ -52,7 +52,7 @@ class Student extends Component {
         if (this.state.fetchState === DONE_ALL && this.state.semResult.name) {
 
             let rating = 0, semCount = 0, progressArray = [];
-            console.log(this.state.analyticsResult);
+            //console.log(this.state.analyticsResult);
             for (let key in this.state.analyticsResult) {
                 let analyticsResult = this.state.analyticsResult;
                 let semResult = this.state.semResult;
@@ -75,12 +75,12 @@ class Student extends Component {
                 }
             }
             rating = (rating / semCount) * 5;
-            console.log(rating);
+            //console.log(rating);
             let myState = this.state;
             myState.rating = rating;
             myState.fetchState = SHOWING_DATA;
             myState.progressChartData = progressArray;
-            console.log(progressArray);
+            //console.log(progressArray);
             localStorage.setItem('studentState', JSON.stringify(myState));
             toast(this.state.semResult.name + " is in top " + (100 - rating * 20).toFixed(2) + "%", { type: toast.TYPE.INFO });
             this.setState(() => ({ rating: rating, progressChartData: progressArray, fetchState: SHOWING_DATA }))
@@ -106,15 +106,15 @@ class Student extends Component {
                             toast("Records not Found!", { type: toast.TYPE.ERROR });
                         const STATE = this.state.fetchState === DONE_ANALYTICS ? DONE_ALL : DONE_SCORE;
                         this.setState(() => ({ semResult: result, fetchState: STATE }));
-                        console.log(result);
+                        //console.log(result);
                     },
                     // Note: it's important to handle errors here
                     // instead of a catch() block so that we don't swallow
                     // exceptions from actual bugs in components.
                     (error) => {
-                        toast("Something went wrong", { type: toast.TYPE.ERROR })
+                        toast("Something went wrong, try changing server in menu", { type: toast.TYPE.ERROR })
                         this.setState(() => ({ fetchState: ERROR }));
-                        console.log(error);
+                        //console.log(error);
                     }
                 )
             fetch(API_HOST + "/analytics/cgpa/" + this.state.text + "/" + semList)
@@ -129,9 +129,9 @@ class Student extends Component {
                     // instead of a catch() block so that we don't swallow
                     // exceptions from actual bugs in components.
                     (error) => {
-                        toast("Something went wrong", { type: toast.TYPE.ERROR })
+                        toast("Something went wrong, try changing server in menu", { type: toast.TYPE.ERROR })
                         this.setState(() => ({ fetchState: ERROR }));
-                        console.log(error);
+                        //console.log(error);
                     }
                 )
         }
@@ -140,8 +140,8 @@ class Student extends Component {
         //console.log(data);
         let res = [];
         let min = 1000, max = 0;
-        for (let i = 0; i < data.length; i++) {
-            let index = parseInt(parseFloat(data[i].CGPA) * 100);
+        for (let i of data) {
+            let index = parseInt(parseFloat(i.CGPA) * 100);
             if (index > max)
                 max = index;
             if (min > index)
@@ -152,9 +152,9 @@ class Student extends Component {
         for (let i = min; i <= max; i++) {
             res[i - min] = { CGPA: (i / 100).toFixed(2), students: null }
         }
-        for (let i = 0; i < data.length; i++) {
-            let index = parseInt(parseFloat(data[i].CGPA) * 100);
-            res[index - min] = { CGPA: (index / 100).toFixed(2), students: data[i].count };
+        for (let i of data) {
+            let index = parseInt(parseFloat(i.CGPA) * 100);
+            res[index - min] = { CGPA: (index / 100).toFixed(2), students: i.count };
         }
         return res;
     }

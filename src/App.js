@@ -42,7 +42,7 @@ class App extends React.Component {
     localStorage.setItem("ver", "1.15")
   }
   navItemClickListner(id) {
-    console.log("Menu Selected: " + id);
+    //console.log("Menu Selected: " + id);
     let drawerState = this.state.isOpen, animate = false;
     if (drawerState && isMobile) {
       drawerState = false;
@@ -81,9 +81,9 @@ class App extends React.Component {
         mainComp = <Settings />
         break;
       default:
-        console.log(this.state.itemSelected, "was selected");
+        //console.log(this.state.itemSelected, "coming soon");
     }
-    console.log("Animate: " + this.state.animate);
+    //console.log("Animate: " + this.state.animate);
     return (
       <Fragment>
         <Drawer width={280} list={this.list} navItemClickListner={this.navItemClickListner} open={this.state.isOpen} activeId={this.state.itemSelected}></Drawer>

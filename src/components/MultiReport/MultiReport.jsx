@@ -153,7 +153,7 @@ class MultiReport extends Component {
                     // instead of a catch() block so that we don't swallow
                     // exceptions from actual bugs in components.
                     (error) => {
-                        toast("Something went wrong", { type: toast.TYPE.ERROR })
+                        toast("Something went wrong, try changing server in menu", { type: toast.TYPE.ERROR })
                         this.setState(() => ({ fetchState: ERROR }));
                         console.log(error);
                     }

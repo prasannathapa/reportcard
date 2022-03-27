@@ -1,13 +1,16 @@
 import { useState } from 'react';
 import './settings.scss'
 import { Icon } from '@iconify/react';
-import { SERVER1, SERVER2, setHost, SELECTED_SERVER, HTTP_METHOD } from '../../Database/db';
+import { SERVER1, SERVER2, setHost, SELECTED_SERVER, HTTP_METHOD, API_HOST } from '../../Database/db';
 function Settings(props) {
     let savedServer = localStorage.getItem(SELECTED_SERVER);
-    if (savedServer != SERVER1 && savedServer != SERVER2)
-        savedServer = SERVER1;
+    if (savedServer != SERVER1 && savedServer != SERVER2) {
+        if (API_HOST.endsWith(SERVER1))
+            savedServer = SERVER1;
+        else
+            savedServer = SERVER2;
+    }
     const [server, setServer] = useState(savedServer);
-    console.log(server)
     function selectServer(host) {
         setHost(host);
         localStorage.setItem(SELECTED_SERVER, host);

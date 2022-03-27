@@ -33,7 +33,7 @@ class SubjectReport extends Component {
     }
     ItemClickUpdate(selectedSubject, isSelected) {
         selectedSubject = Object.keys(subCodes)[selectedSubject]
-        console.log(subCodes[selectedSubject], selectedSubject);
+        //console.log(subCodes[selectedSubject], selectedSubject);
         if (isSelected)
             this.setState(() => ({ text: "", selectedSubject: selectedSubject, semList: subCodes[selectedSubject], selectedSem: subCodes[selectedSubject][0] }));
         else

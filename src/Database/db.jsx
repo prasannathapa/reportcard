@@ -238,17 +238,17 @@ export const SERVER2 = "makaut-api.openode.dev";
 //const HTTP_METHOD = "http://";
 //const HOST_URL = "localhost:8080";
 export const SELECTED_SERVER = "selectedServer";
-let API_HOST = HTTP_METHOD + SERVER1;
+let API_HOST = HTTP_METHOD + ((Math.floor(1+Math.random()*10) % 2 == 0) ? SERVER1 : SERVER2);
 let savedServer = localStorage.getItem(SELECTED_SERVER);
-function setHost(server){
-    if(server == SERVER1)
+function setHost(server) {
+    if (server == SERVER1)
         API_HOST = HTTP_METHOD + SERVER1;
     else
         API_HOST = HTTP_METHOD + SERVER2;
 }
-if(savedServer == SERVER1 || savedServer == SERVER2)
+if (savedServer == SERVER1 || savedServer == SERVER2)
     setHost(savedServer);
-export {API_HOST, setHost};
+export { API_HOST, setHost };
 
 export const colors = [
     "#63b598", "#ce7d78", "#ea9e70", "#a48a9e", "#c6e1e8", "#648177", "#0d5ac1",
