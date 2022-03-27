@@ -64,19 +64,19 @@ class CollegeReport extends Component {
                     if (lowDeviationHighMarks.length > 1) {
                         a = <Fragment>
                             The subjects: <bold>{lowDeviationHighMarks}</bold> seems to have very low standard deviation (less than {sd_low_thres} ) with high class average (more than {cgpa_high_thres} ).
-                            This indicates the posibility of question paper being too easy or possible security compromise in exam halls. <br></br>
+                            This indicates the possibility of question paper being too easy or possible security compromise in exam halls. <br></br>
                         </Fragment>
                     }
                     if (lowDeviationLowMarks.length > 1) {
                         b = <Fragment>
                             The data shows that the entire batch is not performing well in <bold>{lowDeviationLowMarks}</bold>
-                            as it has very low standard deviation (less than {sd_low_thres} ) with low class average (less than {cgpa_low_thres} ). The reason can be uncovered syllabus by the organisation, question paper with out of syllabus questions or an excessively lengthy question paper.<br></br>
+                            as it has very low standard deviation (less than {sd_low_thres} ) with low class average (less than {cgpa_low_thres} ). The reason can be uncovered syllabus by the organization, question paper with out of syllabus questions or an excessively lengthy question paper.<br></br>
                         </Fragment>
                     }
                     if (highDeviationData.length > 1) {
                         c = <Fragment>
                             Students having <bold>{highDeviationData}</bold>
-                            has a very much dispersed performance than normal (these subjects had a standard deviation of more than  {sd_high_thres} ) wich might be caused by lack of communication of students with teaching faculty or most students is being mostly not present in the lectures.<br></br>
+                            has a very much dispersed performance than normal (these subjects had a standard deviation of more than  {sd_high_thres} ) which might be caused by lack of communication of students with teaching faculty or most students is being mostly not present in the lectures.<br></br>
                         </Fragment>
 
                     }

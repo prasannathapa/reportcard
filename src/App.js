@@ -7,6 +7,7 @@ import iconCollege from './components/Drawer/icons/college.svg'
 import iconAI from './components/Drawer/icons/ai.svg'
 import iconCompare from './components/Drawer/icons/compare.svg'
 import iconFaq from './components/Drawer/icons/faq.svg'
+import iconServer from './components/Drawer/icons/server.svg'
 import iconHome from './components/Drawer/icons/home.svg'
 import iconBook from './components/Drawer/icons/book.svg'
 import iconSearch from './components/Drawer/icons/search.svg'
@@ -18,6 +19,7 @@ import NotImplemented from './components/UnderConstruction';
 import CollegeReport from './components/CollegeReport/CollegeReport';
 import StudentCompare from './components/StudentCompare/StudentCompare';
 import SubjectReport from './components/SubjectReport/SubjectReport';
+import Settings from './components/Settings/Settings';
 
 class App extends React.Component {
   constructor(props) {
@@ -33,7 +35,7 @@ class App extends React.Component {
       ["Subject Report", iconBook],
       ["Compare Student", iconCompare],
       ["Predict", iconAI],
-      ["Faq", iconFaq]]
+      ["Server", iconServer]]
     this.navItemClickListner = this.navItemClickListner.bind(this);
     if (localStorage.getItem("ver") !== "1.15")
       localStorage.clear();
@@ -74,6 +76,9 @@ class App extends React.Component {
         break;
       case '5':
         mainComp = <StudentCompare />
+        break;
+      case '7':
+        mainComp = <Settings />
         break;
       default:
         console.log(this.state.itemSelected, "was selected");

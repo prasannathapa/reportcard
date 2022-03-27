@@ -5,7 +5,10 @@ import './home.scss'
 import resultPreviewImg from './result-prev.png'
 import subPreviewImg from './sub-res.png'
 import distImg from './distribution.png'
+import studentComp from './student-comp.png'
 import multiRepImg from './multi-prev.png'
+import collegeAnalytiycs from './college-analytics.png'
+import subAnalytiycs from './sub-analytics.png'
 import { Area, AreaChart, Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 function Home(props) {
     const data = [
@@ -80,9 +83,9 @@ function Home(props) {
                         4 🌟 is better then 60% and so on...</p>
                     <div style={{ display: 'inline-grid', margin: '32px 24px' }}>
                         <span>The Subject Radar</span>
-                        <text>One may get 10 CGPA easily in one subject and stuggle for 7 CGPA on other. But with The recruiter can under-estimate your hard work
+                        <text>One may get 10 CGPA easily in one subject and struggle for 7 CGPA on other. But with The recruiter can under-estimate your hard work
                             as you dont have a perfect 10 on your card. This is where percentile based marks can be helpful to show the percentage of people you are
-                            better then.The Subject Radar shows you your percentile based score to help you get more meaningfull results
+                            better then.The Subject Radar shows you your percentile based score to help you get more meaningfully results
                         </text>
                     </div>
 
@@ -98,15 +101,39 @@ function Home(props) {
                     </div>
                     <div style={{ height: '64px', width: '100%' }}></div>
                 </div>
+                <span className="">Multi Report</span>
                 <hr style={{ width: '10%', margin: '24px auto' }} />
-                <span className="title">Multi Report</span>
                 <div className="flex">
                     <img src={multiRepImg}></img>
                     <div style={{ display: 'inline-grid', margin: '32px 24px' }}>
                         <span>Get the whole class results!</span>
-                        <text>Just put the begining and ending roll number of any batch and the results are at
-                            you finger tips! Sort the results by various paramaters and find the Topper or the bottom ranker see your place amongst all</text>
+                        <text>Just put the beginning and ending roll number of any batch and the results are at
+                            you finger tips! Sort the results by various parameters and find the Topper or the bottom ranker see your place amongst all</text>
                     </div>
+                    <div style={{ height: '32px', width: '100%' }}></div>
+                    <img src={studentComp}></img>
+                    <div style={{ display: 'inline-grid', margin: '32px 24px' }}>
+                        <span>Compare student on the go!</span>
+                        <text>Add students from same or different institutes batches or even years! it will show you relevant parameters and charts to give you a brief comparison reliably and fast</text>
+                    </div>
+                </div>
+                <div style={{ height: '52px', width: '100%' }}></div>
+                <span className="title">Institutional Analytics</span>
+                <hr style={{ width: '10%', margin: '24px auto' }} />
+                <div className="flex">
+                    <div style={{ display: 'inline-grid', margin: '32px 24px' }}>
+                        <span>College Analytics!</span>
+                        <text>It shows you the performance metrics of different colleges, their subjects and the student batches. 
+                            It detects the exam and This indicates the possibility of question paper being too easy or uncovered 
+                            syllabus by the organization, question paper with out of syllabus questions or an excessively lengthy 
+                            question paper and  lack of communication of students with teaching faculty</text>
+                    </div>
+                    <img src={collegeAnalytiycs}></img>
+                    <div style={{ display: 'inline-grid', margin: '32px 24px' }}>
+                        <span>Subject performance for faculty!</span>
+                        <text>Shows you the batch wise data for a particular subject for different colleges. Helps finding the average performance and subject teaching quality improvements each year</text>
+                    </div>
+                    <img src={subAnalytiycs}></img>
                 </div>
             </header>
             <footer>
