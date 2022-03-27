@@ -42,6 +42,7 @@ function Drawer(props) {
                     />
                 </header>
                 {drawerItems}
+                <p> </p>
             </div>
         </React.Fragment>
     );
