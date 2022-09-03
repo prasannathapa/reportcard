@@ -234,7 +234,7 @@ export const course_code = cources;
 
 export const HTTP_METHOD = "https://";
 export const SERVER1 = "makaut-api.herokuapp.com";
-export const SERVER2 = "makaut-api.openode.dev";
+export const SERVER2 = "makaut-api.onrender.com";
 //const HTTP_METHOD = "http://";
 //const HOST_URL = "localhost:8080";
 export const SELECTED_SERVER = "selectedServer";
