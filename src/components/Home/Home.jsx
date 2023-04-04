@@ -64,6 +64,7 @@ function Home(props) {
                 <text>works with</text>
                 <Typer className="typer" color="black" dataText={Object.values(colleges)} spacing={3} />
                 <hr style={{ width: '10%', margin: '24px auto' }} />
+                <p style={{ margin: 'auto', color:"red"}}>IMPORTAMT NOTICE: MAKAUT CHANGED THEIR RESULT WEBSITE TO <a href="https://makaut.mastersofterp.in">MASTERSOFTERP</a>. IT WILL NOT WORK FOR RESULTS AFTER 2022, I WILL ADD OPTIONS FOR UPLOADING THE PDF DIRECTLY TO GET ANALYTICS</p>
                 <div className="flex">
                     <img src={resultPreviewImg}></img>
                     <div style={{ display: 'inline-grid', margin: '32px 24px' }}>

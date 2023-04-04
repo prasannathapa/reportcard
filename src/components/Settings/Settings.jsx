@@ -16,31 +16,32 @@ function Settings(props) {
         localStorage.setItem(SELECTED_SERVER, host);
         setServer(host);
     }
+    const [input, setInput] = useState(localStorage.getItem('custom_server') || SERVER2);
     return (
 
         <div>
             <div className="snip1265">
                 <div className={"plan " + (server == SERVER1 ? "featured" : "")}>
-                    <header><i><Icon icon="simple-icons:heroku" color="#f39c12" /></i>
+                    <header><i><Icon icon="mdi:aws" color="#f39c12" /></i>
                         <h4 className="plan-title">
-                            Heroku Servers
+                            Primary Servers
                         </h4>
-                        <div className="plan-cost"><span className="plan-type">host </span><span className="plan-price">herokuapp.com</span></div>
+                        <div className="plan-cost"><span className="plan-type">host </span><span className="plan-price">prasannathapa.in</span></div>
                     </header>
                     <ul className="plan-features">
                         <li><a style={{ fontFamily: 'monospace' }}>{HTTP_METHOD + SERVER1}</a>
                         </li>
-                        <li> Slow Initial Request
+                        <li> Fastest feature updates (if any)
                         </li>
-                        <li> 30sec timeout<br></br>(skips some queires if takes longer then 30sec)
+                        <li> unlimited timeout<br></br>(no skiping queires if takes longer then 30sec)
                         </li>
                         <li> Unlimited API calls
                         </li>
                         <li> Tested and reliable
                         </li>
-                        <li> Monthly limit of 550 free hours
+                        <li> It costs me, so if I go broke this will go down
                         </li>
-                        <li> 1x	vCPU with 512 MB RAM
+                        <li> AWS Servers
                         </li>
                     </ul>
                     {server == SERVER1 ?
@@ -53,30 +54,31 @@ function Settings(props) {
                 <div className={"plan " + (server == SERVER2 ? "featured" : "")}>
                     <header><i><Icon icon="la:node-js" color="#f39c12" /></i>
                         <h4 className="plan-title">
-                            Openode Servers
+                            Custom Servers
                         </h4>
-                        <div className="plan-cost"><span className="plan-type">host </span><span className="plan-price">openode.com</span></div>
+                        <div className="plan-cost"><span className="plan-type">host </span><span className="plan-price"><input id={'input'} value={input} onInput={e => setInput(e.target.value)} /></span></div>
                     </header>
                     <ul className="plan-features">
                         <li><a style={{ fontFamily: 'monospace' }}>{HTTP_METHOD + SERVER2}</a>
                         </li>
-                        <li> Constant & fast API request time
+                        <li> Use your own server 
                         </li>
-                        <li> Unlimited timeout<br></br>(can process more queries taking longer time)
+                        <li> Customise <br></br>(the way you want)
                         </li>
-                        <li> Unlimited API calls
+                        <li> Set your won restrictions API calls
                         </li>
-                        <li> Less tested
+                        <li> Keep your data private
                         </li>
-                        <li> Always available
+                        <li> We both go broke then only its down
                         </li>
-                        <li> shared CPU with 128 MB RAM
+                        <li> you can use a super computer if you want
                         </li>
+                        
                     </ul>
-                    {server == SERVER2 ?
+                    {server == input ?
                         <div className="plan-select"><a style={{ background: "black" }}>SELECTED</a></div>
                         :
-                        <div className="plan-select" onClick={() => selectServer(SERVER2)}><a>Select server</a></div>
+                        <div className="plan-select" onClick={() => selectServer(input)}><a>Select server</a></div>
                     }
                 </div>
             </div>
