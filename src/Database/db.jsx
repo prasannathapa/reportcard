@@ -232,22 +232,21 @@ const cources = {
 }
 export const course_code = cources;
 
-export const HTTP_METHOD = "https://";
-export const SERVER1 = "gradecard.prasannathapa.in";
-export const SERVER2 = "{{ENTER YOUR URL WITHOUT HTTPS://}}";
-//const HTTP_METHOD = "http://";
-//const HOST_URL = "localhost:8080";
 export const SELECTED_SERVER = "selectedServer";
-let API_HOST = HTTP_METHOD + ((Math.floor(1+Math.random()*10) % 2 == 0) ? SERVER1 : SERVER2);
-let savedServer = localStorage.getItem(SELECTED_SERVER);
-function setHost(server) {
-    if (server == SERVER1)
-        API_HOST = HTTP_METHOD + SERVER1;
-    else
-        API_HOST = HTTP_METHOD + SERVER2;
+export const HTTP_METHOD = "https://";
+export const DEFAULT_SERVER = "gradecard.prasannathapa.in";
+export let   CUSTOM_SERVER = localStorage.getItem(SELECTED_SERVER);
+let API_HOST = HTTP_METHOD + DEFAULT_SERVER;
+if(CUSTOM_SERVER){
+    API_HOST = HTTP_METHOD + CUSTOM_SERVER;
 }
-if (savedServer == SERVER1 || savedServer == SERVER2)
-    setHost(savedServer);
+function setHost(server) {
+    if (server === DEFAULT_SERVER)
+        API_HOST = HTTP_METHOD + DEFAULT_SERVER;
+    else
+        API_HOST = HTTP_METHOD + server;
+}
+
 export { API_HOST, setHost };
 
 export const colors = [
