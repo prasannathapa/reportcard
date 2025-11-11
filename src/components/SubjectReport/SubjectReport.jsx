@@ -1,6 +1,6 @@
 import { Component } from "react";
 import { isMobile } from "react-device-detect";
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import colleges, { API_HOST, subCodes } from "../../Database/db";
 import SearchBox from "../SearchBox/SearchBox";
 import SearchList from "../SearchList/SearchList";
@@ -45,19 +45,23 @@ class SubjectReport extends Component {
     getData() {
         let subCode = this.state.selectedSubject;
         let sem = this.state.selectedSem;
-        var urlencoded = new URLSearchParams();
-        urlencoded.append("subCode", subCode);
-        urlencoded.append("sem", sem);
+        const url = `${API_HOST}/subjectReport/${sem}/${subCode}`;
         this.setState({ fetchState: FETCHING });
-        fetch(API_HOST + '/subjectReport', {
-            method: 'POST',
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded",
-            },
-            body: urlencoded
-        }).then(res => res.json()).then(data => {
+        fetch(url, { method: 'GET'})
+        .then(res => {
+            if (!res.ok) {
+                throw new Error(`Network response was not ok: ${res.statusText}`);
+            }
+            return res.json();
+        })
+        .then(data => {
             this.setState({ fetchState: DONE_ALL, data: data, text: subCode });
             localStorage.setItem("subjectData", JSON.stringify(this.state));
+        })
+        .catch(error => {
+            console.error("Failed to fetch subject report:", error);
+            this.setState(() => ({ text: "", selectedSubject: null, semList: [], fetchState: IDLE }));
+            toast("Something went wrong!", { type: toast.TYPE.ERROR });
         });
     }
     textFilter(e) {
@@ -78,7 +82,7 @@ class SubjectReport extends Component {
             let filterArray = this.state.textFilter.split(" ");
             for (let filter of filterArray) {
                 if (filter.length > 0) {
-                    if (text.toLocaleLowerCase().search(filter.replace(/[#-.]|[[-^]|[?|{}]/g, '\\$&').toLocaleLowerCase()) == -1) {
+                    if (text && text.toLocaleLowerCase().search(filter.replace(/[#-.]|[[-^]|[?|{}]/g, '\\$&').toLocaleLowerCase()) == -1) {
                         containText = false;
                         break;
                     }
