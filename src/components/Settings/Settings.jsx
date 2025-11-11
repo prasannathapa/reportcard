@@ -98,10 +98,10 @@ function Settings(props) {
 
                     </ul>
                     {/* This logic for disabling the button looks correct */}
-                    {server === input ?
+                    {server === input && DEFAULT_SERVER !== input ?
                         <div className="plan-select"><a style={{ background: "black" }}>SELECTED</a></div>
                         :
-                        (input === "" ?
+                        (input === "" || DEFAULT_SERVER === input ?
                             <div className="plan-select" disabled><a style={{ background: "grey" }}>Select server</a></div>
                             :
                             <div className="plan-select" onClick={() => selectServer(input)}><a>Select server</a></div>
