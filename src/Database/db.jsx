@@ -241,12 +241,14 @@ if (CUSTOM_SERVER) {
     API_HOST = HTTP_METHOD + CUSTOM_SERVER;
 }
 function setHost(server) {
-    if (server === DEFAULT_SERVER)
+    if (server === DEFAULT_SERVER) {
         API_HOST = HTTP_METHOD + DEFAULT_SERVER;
-    else
+        CUSTOM_SERVER = null;
+    } else {
         API_HOST = HTTP_METHOD + server;
+        CUSTOM_SERVER = server;
+    }
 }
-
 export { API_HOST, setHost };
 
 export const colors = [
